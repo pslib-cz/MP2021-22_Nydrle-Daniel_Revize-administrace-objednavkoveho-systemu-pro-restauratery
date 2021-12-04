@@ -54,18 +54,20 @@ export let orderData = {
             yAxisID: "orders",
             data: labels.map(() => faker.datatype.number(10)),
             fill: true,
+			borderColor: clr.YELLOW,
 			borderWidth: 0,
-			borderColor: clr.PINK,
-			backgroundColor: clr.PINK,
+			backgroundColor: `${clr.YELLOW}66`,
             tension: 0.2,
         }
     ],
     options: {
 		responsive: true,
+		
 		interaction: {
 			mode: 'index',
 			intersect: false,
-		  },
+		},
+		stacked: false,
         scales: {
 			orders: {
 				type: 'linear' as const,
@@ -87,6 +89,8 @@ incomeData.datasets[0].data.forEach((data: number, index: number) => {
     averages.push(data / orderData.datasets[0].data[index]);
 })
 
+console.log(orderData.options.scales)
+
 orderData = {...orderData, datasets: [...orderData.datasets,
 	{
         id: "averages",
@@ -95,10 +99,10 @@ orderData = {...orderData, datasets: [...orderData.datasets,
         label: "Průměrná útrata",
         yAxisID: "averages",
         data: averages,
-		borderWidth: 5,
         fill: false,
-		borderColor: clr.YELLOW,
-		backgroundColor: clr.YELLOW,
+		borderColor: clr.PINK,
+		borderWidth: 5,
+		backgroundColor: clr.PINK,
         tension: 0.3,
     }
 ]}

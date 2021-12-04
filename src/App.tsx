@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "./providers/Provider";
 import Home from "./components/Home";
 
-import "./App.css";
+import "./scss/main.scss"
 
 function App() {
 	return (

@@ -1,0 +1,38 @@
+@import "_colors";
+
+.fa-arrow-up {
+    color: $green;
+}
+.fa-arrow-down {
+    color: $pink;
+}
+.fa-minus {
+    color: $yellow;
+}
+
+.orders {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+    &-order {
+        position: relative;
+        width: 20%;
+        padding: 30px;
+        background-color: $gray;
+        color: $gray-dark;
+        border-radius: 20px;
+        &-value {
+            font-size: 3rem;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+        &-heading {
+            font-size: 1.4rem;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+        &-difference {
+            position: absolute;
+        }
+    }
+}

@@ -15,6 +15,9 @@ import {
 } from "chart.js";
 import * as clr from "../plugins/plugin.colors";
 import { tableData, incomeData, orderData } from "../data/data";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import OrderChange from "./OrderChange";
 
 ChartJS.register(
 	CategoryScale,
@@ -51,6 +54,7 @@ const Home = () => {
 	return (
 		<div>
 			<h1>Hlavní panel</h1>
+			<OrderChange orders={orderData.datasets[0].data.slice(-2)} incomes={incomeData.datasets[0].data.slice(-2)} />
 			<OrdersTable {...JSON.parse(JSON.stringify(tableOrders))} />
 			<Chart type="bar" data={{ ...incomes }} />
 			<Chart
