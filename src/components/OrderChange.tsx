@@ -42,10 +42,10 @@ const OrderChange = (props: Props) => {
         setIcons({orders: orderIcon!, incomes: incomeIcon!})
     }, [])
     return (
-        <div className="orders">
-            <div className="orders-order">
-                <h4 className="orders-order-value">{orders.today}</h4>
-                <h5 className="orders-order-heading">Objednávky</h5>
+        <div className="orderbox">
+            <div className="orderbox-order">
+                <h4 className="orderbox-order-value">{orders.today}</h4>
+                <h5 className="orderbox-order-heading">Objednávky</h5>
                 {
                     orders.today > orders.yesterday && (
                         <FontAwesomeIcon icon={faArrowUp} />
@@ -61,11 +61,11 @@ const OrderChange = (props: Props) => {
                         <FontAwesomeIcon icon={faMinus} />
                     )
                 }
-                <small className="orders-order-difference">{orderDifference}</small>
+                <small className="orderbox-order-difference">{orderDifference}</small>
             </div>
-            <div className="orders-order">
-                <h4 className="orders-order-value">{incomes.today}&nbsp;Kč</h4>
-                <h5 className="orders-order-heading">Tržba</h5>
+            <div className="orderbox-order">
+                <h4 className="orderbox-order-value">{incomes.today}&nbsp;Kč</h4>
+                <h5 className="orderbox-order-heading">Tržba</h5>
                 {
                     incomes.today > incomes.yesterday && (
                         <FontAwesomeIcon icon={faArrowUp} />
@@ -81,7 +81,7 @@ const OrderChange = (props: Props) => {
                         <FontAwesomeIcon icon={faMinus} />
                     )
                 }
-                <small className="orders-order-difference">{incomeDifference}&nbsp;Kč</small>
+                <small className="orderbox-order-difference">{incomeDifference}&nbsp;Kč</small>
             </div>
         </div>
     )

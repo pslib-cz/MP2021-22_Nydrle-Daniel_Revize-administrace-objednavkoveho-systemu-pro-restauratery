@@ -40,7 +40,10 @@ export let incomeData = {
             label: "Tržba",
             data: labels.map(() => faker.datatype.number(2000)),
         },
-    ]
+    ],
+	options: {
+		responsive: true,
+	},
 }
 
 export let orderData = {
@@ -62,24 +65,27 @@ export let orderData = {
     ],
     options: {
 		responsive: true,
-		
 		interaction: {
 			mode: 'index',
 			intersect: false,
 		},
 		stacked: false,
         scales: {
-			orders: {
-				type: 'linear' as const,
-				position: 'left' as const,
-			},
-			averages: {
-				type: 'linear' as const,
-				position: 'right' as const,
-				grid: {
-				  drawOnChartArea: false,
+			yAxes: [
+				{
+					id: "orders",
+					type: 'linear' as const,
+					position: 'left',
 				},
-			}
+				{
+					id: "averages",
+					type: 'linear' as const,
+					position: 'right' as const,
+					grid: {
+						drawOnChartArea: false,
+					},
+				}
+			]
         },
     }
 }

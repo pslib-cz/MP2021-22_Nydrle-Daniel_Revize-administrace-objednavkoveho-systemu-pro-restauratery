@@ -1,3 +1,5 @@
+import { faClock, faDollarSign, faHashtag, faHome, faList, faMobile, faMoneyBill, faPersonBooth, faPhone, faPhoneAlt, faSmile, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 
 interface Props {
@@ -21,25 +23,26 @@ interface Item {
 const OrdersTable = (props: Props) => {
 	const [orders, setOrders] = useState<Order[]>(props.orders);
 	return (
-		<table>
-			<thead>
+		<table className="ordertable">
+			<thead className="ordertable-header">
 				<tr>
-					<th>Čas</th>
-					<th>Cena</th>
-					<th>Telefon</th>
-					<th>Položky</th>
-					<th>Jméno</th>
-					<th>Adresa</th>
-					<th>Akce</th>
+					<th><FontAwesomeIcon icon={faHashtag}/>Objednávka</th>
+					<th><FontAwesomeIcon icon={faClock} /> Čas</th>
+					<th><FontAwesomeIcon icon={faDollarSign} /> Cena</th>
+					<th><FontAwesomeIcon icon={faPhoneAlt} /> Telefon</th>
+					<th><FontAwesomeIcon icon={faList} /> Položky</th>
+					<th><FontAwesomeIcon icon={faSmile} /> Jméno</th>
+					<th><FontAwesomeIcon icon={faHome} /> Adresa</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody className="ordertable-body">
 				{orders.map((order: Order) => {
 					{
 						return (
 							<tr>
+								<td>#12345</td>
 								<td>{order.time}</td>
-								<td>{order.price}</td>
+								<td>{order.price}&nbsp;Kč</td>
 								<td>{order.phone}</td>
 								<td>
 									{order.items.map((item: Item) => {

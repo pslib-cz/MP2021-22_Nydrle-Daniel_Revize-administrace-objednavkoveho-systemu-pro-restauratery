@@ -52,17 +52,22 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div>
-			<h1>Hlavní panel</h1>
+		<div className="page page-home">
 			<OrderChange orders={orderData.datasets[0].data.slice(-2)} incomes={incomeData.datasets[0].data.slice(-2)} />
 			<OrdersTable {...JSON.parse(JSON.stringify(tableOrders))} />
-			<Chart type="bar" data={{ ...incomes }} />
-			<Chart
-				type="line"
-				ref={orderChartRef}
-				datasetIdKey="order"
-				data={orders}
-			/>
+			<div className="charts">
+				<div className="charts-chartcontainer">
+					<Chart type="bar" data={{ ...incomes }} />
+				</div>
+				<div className="charts-chartcontainer">
+					<Chart
+						type="line"
+						ref={orderChartRef}
+						datasetIdKey="order"
+						data={orders}
+					/>
+				</div>
+			</div>
 		</div>
 	);
 };
