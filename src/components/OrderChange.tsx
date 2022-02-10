@@ -21,16 +21,16 @@ interface Icons {
 }
 
 const OrderChange = (props: Props) => {
-    const [orders, setOrders] = useState<Order>({today: props.orders[1], yesterday: props.orders[0]});
-    const [incomes, setIncomes] = useState<Income>({today: props.incomes[1], yesterday: props.incomes[0]});
-    const [orderDifference, setOrderDifference] = useState(0);
-    const [incomeDifference, setIncomeDifference] = useState(0);
-    const [icons, setIcons] = useState<Icons>({orders: "Minus", incomes: "Minus"});
+    const [orders, setOrders] = useState<Order>({today: props.orders[1], yesterday: props.orders[0]})
+    const [incomes, setIncomes] = useState<Income>({today: props.incomes[1], yesterday: props.incomes[0]})
+    const [orderDifference, setOrderDifference] = useState(0)
+    const [incomeDifference, setIncomeDifference] = useState(0)
+    const [icons, setIcons] = useState<Icons>({orders: "Minus", incomes: "Minus"})
 
     useEffect(() => {
-        setOrderDifference(orders.today - orders.yesterday);
-        setIncomeDifference(incomes.today - incomes.yesterday);
-        let orderIcon: string, incomeIcon: string;
+        setOrderDifference(orders.today - orders.yesterday)
+        setIncomeDifference(incomes.today - incomes.yesterday)
+        let orderIcon: string, incomeIcon: string
         if (orderDifference > 0)
             orderIcon = "ArrowUp"
         else if (orderDifference < 0)

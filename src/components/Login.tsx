@@ -1,30 +1,22 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { api } from '../config/api';
-import Home from './Home';
+import axios from 'axios'
+import React, { useEffect, useState, useContext, Dispatch } from 'react'
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
+import { api } from '../config/api'
+import Home from './pages/Home'
 
-const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState(false);
-    const [log, setLog] = useState("");
-
-    useEffect(() => {
-        if (success) {
-            window.location.replace("/home");
-        }
-        else if (email != "" && password != "") {
-            alert("Neplatné přihlášení")
-        }
-    }, [success])
+const Login = ({setToken} : any) => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
     const login = () => {
-        let inputData:object = {email, password}
-
-        api.post("/login", inputData)
+        api.post("/login", {email, password})
         .then(response => {
-            console.log(response.data)
-            setSuccess(response.data.success)
+            if (response.data.success === 1) {
+                setToken(response.data.data)
+                navigate("/");
+            }
         })
         .catch(error => {
             console.log(error)

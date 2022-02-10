@@ -8,12 +8,12 @@ for (var i = 1; i < amount + 1; i++) {
 }
 
 export let tableData : object = {
-    orders: new Array(faker.datatype.number({min: 1, max: 5})).fill(null).map(e => e =
+    orders: new Array(faker.datatype.number(5)).fill(null).map(e => e =
 		{
 			time: faker.datatype.datetime(),
 			price: faker.datatype.number(2000),
 			phone: faker.phone.phoneNumber(),
-			items: new Array(faker.datatype.number(10)).fill(null).map(e => e = {amount: faker.datatype.number({min: 1, max: 10}), name: faker.vehicle.vehicle()}),
+			items: new Array(faker.datatype.number(5)).fill(null).map(e => e = {amount: faker.datatype.number({min: 1, max: 10}), name: faker.vehicle.vehicle()}),
 			name: faker.name.findName(),
 			address: faker.address.streetAddress()
 		}
@@ -94,8 +94,6 @@ const averages:number[] = [];
 incomeData.datasets[0].data.forEach((data: number, index: number) => {
     averages.push(data / orderData.datasets[0].data[index]);
 })
-
-console.log(orderData.options.scales)
 
 orderData = {...orderData, datasets: [...orderData.datasets,
 	{
