@@ -1,37 +1,12 @@
+import { faPencilAlt, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { api } from '../../config/api'
 import { useRequireAuth } from '../auth/useRequireAuth'
+import Category from '../../interfaces/Category'
+import Item from '../../interfaces/Item'
 import ItemsTable from '../ItemsTable'
 import useToken from '../useToken'
-
-interface Category {
-	id: number
-	name: string
-	order: number
-	desc: string
-	active: number
-	has_images: number
-}
-
-interface Item {
-	id: number
-	code: string
-	cat: number
-	name: string
-	alergeny: string
-	px: number
-	amount: string
-	img_full: string
-	img_thumb: string
-	active: number
-	pkpx: number
-	is_supplement: number
-	stock: number
-	is_restricted: number
-	desc: string
-	ingreds: string
-	ingreds_count: number
-}
 
 const Items = () => {
 	document.title = "Sortiment"
@@ -53,7 +28,7 @@ const Items = () => {
 			}
 		})
 			.then(response => {
-				setCategories(response.data.data)
+				setCategories(Object.values(response.data.data))
 			})
 			.catch(error => {
 				console.log(error)
@@ -64,7 +39,6 @@ const Items = () => {
 			}
 		})
 			.then(response => {
-				console.log(response.data.data)
 				setItems(response.data.data)
 			})
 			.catch(error => {
@@ -73,16 +47,31 @@ const Items = () => {
 	}, []);
     return (
         <div className='page page-items'>
-            <h1>Položky</h1>
+			<div className="page-items-links">
 			{categories.map((category: Category) => {
 				{return (
-					<a className='item-link' href={`#${category.name}`}>{category.name}</a>
+					<a className='page-items-links-link' href={`#${category.name}`}>{category.name}</a>
 				)}
 			})}
+			</div>
 			{categories.map((category: Category) => {
 				{return (
-					<section key={category.id} id={category.name} className='category'>
-						<h2>{category.name}</h2>
+					<section key={category.id} id={category.name} className='page-items-category'>
+						<header className="page-items-category-header">
+							<h2 className='page-items-category-header-heading'>{category.name}</h2>
+							<button className="page-items-category-header-edit-button">
+								<FontAwesomeIcon icon={faPencilAlt} />
+								Upravit kategorii
+							</button>
+							<button className="page-items-category-header-delete-button">
+								<FontAwesomeIcon icon={faTrash} />
+								Odstranit kategorii 
+							</button>
+							<button className="page-items-category-header-add-button">
+								<FontAwesomeIcon icon={faPlus} />
+								Přidat novou položku
+							</button>
+						</header>
 						<ItemsTable items={filteredItems(category.id)} />
 					</section>
 				)}

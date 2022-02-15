@@ -17,7 +17,7 @@ const Layout = ({children, clearToken, ...rest}: any) => {
     return (
         <main className='layout'>
             <div className="menu">
-                <header className="menu-header">
+                {/* <header className="menu-header">
                     <h1 className="menu-header-name">Restaurace Na Zkušební</h1>
                     <button onClick={() => logout()} className="menu-header-logout-button"><FontAwesomeIcon icon={faPowerOff}/></button>
                 </header>
@@ -27,9 +27,20 @@ const Layout = ({children, clearToken, ...rest}: any) => {
                     <Link to="/orders" className='menu-items-item'>Objednávky</Link>
                     <Link to="/restaurant" className='menu-items-item'>Provozovna</Link>
                     <Link to="/areas" className='menu-items-item'>Oblasti rozvozu</Link>
+                </nav> */}
+                <nav className="menu-nav">
+                    
+                    <h1 className="menu-nav-name">Restaurace Na Zkušební</h1>
+                    <Link to="/" className='menu-nav-link'>Domů</Link>
+                    <Link to="/items" className='menu-nav-link'>Sortiment</Link>
+                    <Link to="/orders" className='menu-nav-link'>Objednávky</Link>
+                    <Link to="/restaurant" className='menu-nav-link'>Provozovna</Link>
+                    <Link to="/areas" className='menu-nav-link'>Oblasti rozvozu</Link>
+                    <button onClick={() => logout()} className="menu-nav-logout-button"><FontAwesomeIcon icon={faPowerOff}/></button>
                 </nav>
             </div>
             <Outlet />
+            <footer></footer>
         </main>
     )
 }

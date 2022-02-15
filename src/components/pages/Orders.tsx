@@ -1,15 +1,67 @@
-import React, { useState } from 'react'
-import { tableData } from '../../data/data'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { api } from '../../config/api';
 import { useRequireAuth } from '../auth/useRequireAuth'
+import Order from '../../interfaces/Order';
 import OrdersTable from '../OrdersTable'
+import useToken from '../useToken';
+import UseDidUpdateEffect from '../functions/UseDidUpdateEffect';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const Orders = () => {
 	document.title = "Objednávky"
-	const [tableOrders, setTableOrders] = useState(tableData)
+	const [orders, setOrders] = useState<Order[]>([])
+	const [pageCounter, setPageCounter] = useState(1)
+	const {token} = useToken()
 	useRequireAuth()
+
+	useEffect(() => {
+		api.get(`/order/all?count=10&page=1`, {
+			headers: {
+				"Authorization": `Bearer ${token}`
+			}
+		})
+		.then(response => {
+			console.log(response.data.data);
+			setOrders(Object.values(response.data.data))
+		})
+	}, [])
+
+	UseDidUpdateEffect(() => {
+		api.get(`/order/all?count=10&page=${pageCounter}`, {
+			headers: {
+				"Authorization": `Bearer ${token}`
+			}
+		})
+		.then(response => {
+			let newOrders: Order[] = []
+			newOrders = Object.values(response.data.data)
+			setOrders(newOrders)
+		})
+	}, [pageCounter])
+
 	return (
 		<div className="page page-orders">
-			<OrdersTable {...JSON.parse(JSON.stringify(tableOrders))} />
+			<OrdersTable orders={orders} />
+			<button onClick={() => {
+				let temp = pageCounter
+				++temp
+				setPageCounter(temp)
+			}}>
+				<FontAwesomeIcon icon={faChevronLeft} />
+				starší
+			</button>
+			{pageCounter > 1 && (
+				<button onClick={() => {
+					let temp = pageCounter
+					--temp
+					setPageCounter(temp)
+				}}>
+					novější
+					<FontAwesomeIcon icon={faChevronRight} />
+				</button>
+			)}
+			
 		</div>
 	)
 };

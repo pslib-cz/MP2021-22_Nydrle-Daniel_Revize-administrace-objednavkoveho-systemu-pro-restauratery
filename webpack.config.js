@@ -3,6 +3,9 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+new HtmlWebpackPlugin({
+  favicon: "./src/favicon.svg"
+})
 
 const isProduction = process.env.NODE_ENV == "production";
 

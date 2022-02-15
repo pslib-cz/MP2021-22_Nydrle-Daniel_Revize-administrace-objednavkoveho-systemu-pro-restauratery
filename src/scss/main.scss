@@ -32,7 +32,7 @@ body {
 }
 
 @mixin shadow {
-	box-shadow: 0px 0px 30px 0px $gray-darker;
+	box-shadow: 0px 0px 2rem 0px $gray-darker;
 }
 
 @mixin center {
@@ -102,57 +102,166 @@ body {
 	color: $red;
 }
 
+input {
+	border: none;
+	border-bottom: 1px solid $gray-darker;
+	&:focus {
+		outline: none;
+	}
+}
+
 .page {
 	width: 90%;
-	padding: 12rem 0 6rem;
+	padding: 8rem 0 6rem;
 	margin: 0 auto;
+	&>h1 {
+		margin-top: 0;
+	}
 	&-home {
 		h1 {
 			margin-top: 0;
 		}
 	}
 	&-items {
-		.item-link {
-			display: inline-block;
-			padding: 0.4rem 1rem;
-			color: $blue-dark;
-			background-color: white;
-			text-decoration: none;
-			border-radius: 1rem;
-			margin-right: 0.4rem;
+		&-links {
+			display: flex;
+			justify-content: center;
+			&-link {
+				display: inline-block;
+				padding: 0.4rem 1rem;
+				color: $blue-dark;
+				background-color: white;
+				text-decoration: none;
+				border-radius: 1rem;
+				margin-right: 0.4rem;
+				@include transition-short();
+				&:hover {
+					background-color: $orange;
+					color: white;
+				}
+			}
+		}
+		&-category {
+			scroll-margin-top: 5rem;
+			&-header {
+				display: flex;
+				align-items: center;
+				&-heading {
+					display: block;
+					margin-right: 2rem;
+				}
+				button {
+					display: inline-block;
+					padding: 0.4rem 1rem;
+					color: $blue-dark;
+					background-color: white;
+					text-decoration: none;
+					border-right: 1rem;
+					margin-right: 0.4rem;
+					border-radius: 1rem;
+					border: 1px solid black;
+					@include transition-short();
+					svg {
+						margin-right: 0.4rem;
+					}
+					&:hover {
+						color: white;
+						cursor: pointer;
+					}
+				}
+				&-add-button {
+					border-color: $green !important;
+					&:hover {
+						background-color: $green;
+					}
+				}
+				&-edit-button {
+					border-color: $yellow !important;
+					&:hover {
+						background-color: $yellow;
+					}
+				}
+				&-delete-button {
+					border-color: $red !important;
+					&:hover {
+						background-color: $red;
+					}
+				}
+			}
 		}
 	}
-	&>h1 {
-		margin-top: 0;
+	&-restaurant {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		&>.left {
+			width: 60%;
+			padding-right: 1rem;
+		}
+		&>.right {
+			width: 40%;
+			padding-left: 1rem;
+		}
+		&-section {
+			h2 {
+				margin-top: 0;
+			}
+			table {
+				width: 100%;
+			}
+			&-general {
+			}
+			&-hours {
+			}
+		}
+		input {
+			border: none;
+			border-bottom: 1px solid $gray;
+			text-align: center;
+			width: max-content;
+		}
 	}
 }
 
 .menu {
 	position: fixed;
-	z-index: 1;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	z-index: 1;
 	background-color: white;
 	width: 100%;
+	justify-content: center;
 	@include shadow();
-	&-header {
-		width: 100%;
-		position: relative;
-		text-align: center;
-		padding: 1rem 0;
+	&-nav {
+		width: 90%;
+		display: flex;
+		align-items: center;
 		&-name {
-			margin: 0;
+			margin-right: 4rem;
+		}
+		&-link {
+			position: relative;
+			top: 0.2rem;
+			font-size: 1.2rem;
+			text-align: center;
+			text-decoration: none;
+			color: $blue-dark;
+			margin-right: 2rem;
+			@include transition-short();
+			@include underline();
+			&:first-of-type {
+				border-left: none;
+			}
+			&::after {
+				margin-top: 0.4rem;
+			}
 		}
 		&-logout-button {
 			position: absolute;
-			top: 0.6rem;
 			right: 0.6rem;
 			height: 2rem;
 			width: 2rem;
 			border: 1px solid $red;
-			background-color: $gray;
+			background-color: white;
 			color: $red;
 			@include shadow();
 			@include transition-short();
@@ -164,28 +273,26 @@ body {
 			}
 		}
 	}
-	&-items {
-		width: 90%;
-		display: flex;
-		justify-content: space-between;
-		padding: 1rem 0;
+	
+	// &-header {
+	// 	width: 100%;
+	// 	position: relative;
+	// 	text-align: center;
+	// 	padding: 1rem 0;
+	// 	&-name {
+	// 		margin: 0;
+	// 	}
+	// }
+	// &-items {
+	// 	width: 90%;
+	// 	display: flex;
+	// 	justify-content: space-between;
+	// 	padding: 1rem 0;
 		&-item {
-			position: relative;
-			width: 15%;
-			font-size: 1.2rem;
-			text-align: center;
-			text-decoration: none;
-			color: $blue-dark;
-			@include transition-short();
-			@include underline();
-			&:first-of-type {
-				border-left: none;
-			}
-			&::after {
-				margin-top: 0.4rem;
-			}
+			
 		}
-	}
+	// }
+
 }
 
 .login {
@@ -207,12 +314,12 @@ body {
 		justify-content: space-between;
 		background-color: white;
 		padding: 1.2rem;
-		border-radius: 20px;
+		border-radius: 1.6rem;
 		width: 30%;
 		@include shadow();
 		&>* {
 			padding: 0.6rem;
-			border-radius: 10px;
+			border-radius: 0.8rem;
 			text-align: center;
 		}
 		&>input {
@@ -239,7 +346,7 @@ body {
 				cursor: pointer;
 			}
 			&:before {
-				border-radius: 10px;
+				border-radius: 0.8rem;
 			}
 		}
 	}
@@ -250,67 +357,64 @@ body {
 	justify-content: space-between;
 	align-items: stretch;
 	width: 100%;
-	margin-bottom: 50px;
+	margin-bottom: 4rem;
 	@include center();
 	&-order {
 		position: relative;
-		width: 30%;
-		padding: 30px;
+		width: 28%;
+		padding: 2rem;
 		background-color: white;
 		color: $blue-dark;
-		border-radius: 20px;
+		border-radius: 2rem;
 		@include shadow();
 		&-value {
 			font-size: 3rem;
 			margin: 0;
-			margin-bottom: 20px;
+			margin-bottom: 2rem;
 		}
 		&-heading {
 			font-size: 1.4rem;
 			margin: 0;
-			margin-bottom: 20px;
+			margin-bottom: 1.4rem;
 		}
 		&-difference {
-			margin-left: 6px;
+			margin-left: 0.6rem;
 		}
 	}
 }
 .table {
 	width: 100%;
-	border-radius: 20px;
+	height: 100%;
 	border-spacing: 0;
-	margin-bottom: 50px;
 	@include center();
 	border-collapse: separate;
 	@include shadow();
+	&-container {
+		border-radius: 1.6rem;
+		overflow: hidden;
+		margin-bottom: 3rem;
+	}
 	&-header {
 		color: white;
 		tr {
+			@include gradient($orange, $pink, );
+			min-height: 0.4rem;
 			th {
-				padding: 6px 10px 10px;
-				background-color: $orange;
-				border-bottom: 2px solid white;
-				&:first-child {
-					border-top-left-radius: 20px;
-				}
-				&:last-child {
-					border-top-right-radius: 20px;
-				}
+				text-align: left;
+				padding: 0.3rem 0.6rem 0.5rem;
 				svg {
-					color: $gray;
-					margin-right: 6px;
+					margin-right: 0.4rem;
 				}
 			}
 		}
 	}
 	&-body {
-		border-radius: 20px;
+		border-radius: 1.6rem;
 		tr {
 			background-color: white;
 			@include transition-short();
 			td {
-				padding: 8px 10px;
-				text-align: center;
+				padding: 0.6rem 0.8rem;
 				vertical-align: middle;
 				border-top: 2px solid $gray;
 			}
@@ -321,19 +425,10 @@ body {
 			}
 			&:last-child {
 				background-color: $gray;
-				border-radius: 200px;
-				&:hover {
-				}
 				td {
 					position: relative;
 					background-color: white;
 					@include transition-short();
-					&:first-child {
-						border-bottom-left-radius: 15px;
-					}
-					&:last-child {
-						border-bottom-right-radius: 15px;
-					}
 				}
 			}
 		}
@@ -347,8 +442,8 @@ body {
 	@include center();
 	&-chartcontainer {
 		background-color: white;
-		padding: 20px;
-		border-radius: 20px;
+		padding: 1.4rem;
+		border-radius: 1.6rem;
 		position: relative;
 		width: 45%;
 		height: auto !important;
@@ -366,6 +461,32 @@ body {
 
 .itemstable {
 	&-body {
+		td {
+			.fa-grip-vertical {
+				color: $gray-darker;
+			}
+			.fa-times, .fa-check {
+				height: 1rem;
+				width: 1rem;
+				padding: 0.2rem;
+				border-radius: 1rem;
+				@include transition-short();
+				&:hover {
+					cursor: pointer;
+					color: white;
+				}
+			}
+			.fa-check {
+				&:hover {
+					background-color: $red;
+				}
+			}
+			.fa-times {
+				&:hover {
+					background-color: $green;
+				}
+			}
+		}
 		&-button {
 			height: 1.6rem;
 			width: 1.6rem;
@@ -376,12 +497,6 @@ body {
 			&:hover {
 				cursor: pointer;
 				color: white;
-			}
-			&-edit {
-				color: $blue-dark;
-				&:hover {
-					background-color: $blue-dark;
-				}
 			}
 			&-delete {
 				color: $red;
