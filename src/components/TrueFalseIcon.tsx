@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 const TrueFalseIcon = ({val}: any) => {
-	console.log(val);
 	return (
 		val === null ? (
 			<FontAwesomeIcon icon={faMinus} /> //null

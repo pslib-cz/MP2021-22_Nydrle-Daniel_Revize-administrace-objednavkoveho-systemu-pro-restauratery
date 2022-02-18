@@ -1,0 +1,32 @@
+.charts {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	@include center();
+	&-chartcontainer {
+		background-color: white;
+		padding: 1.4rem;
+		border-radius: 1.6rem;
+		position: relative;
+		width: 45%;
+		height: auto !important;
+		@include shadow();
+		canvas {
+			width: 100% !important;
+			height: 100% !important;
+		}
+	}
+}
+
+@media screen and (max-width: 992px) {
+    .charts {
+		flex-direction: column;
+		align-items: center;
+		&-chartcontainer {
+			width: 70%;
+			&:first-of-type {
+				margin-bottom: 1rem;
+			}
+		}
+	}
+}

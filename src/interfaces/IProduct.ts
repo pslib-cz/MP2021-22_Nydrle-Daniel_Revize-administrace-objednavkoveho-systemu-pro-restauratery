@@ -1,4 +1,4 @@
-export default interface Item {
+export default interface IProduct {
 	id: number
 	code: string
 	cat: number
@@ -15,5 +15,6 @@ export default interface Item {
 	is_restricted: number
 	desc: string
 	ingreds: string
-	ingreds_count: number
+	ingreds_count: number,
+	order: number
 }

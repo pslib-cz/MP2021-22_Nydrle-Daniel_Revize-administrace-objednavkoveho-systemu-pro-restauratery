@@ -1,0 +1,32 @@
+.page-restaurant {
+	display: flex;
+	flex-direction: row !important;
+	justify-content: space-between;
+	align-items: flex-start;
+	& > .left {
+		width: 60%;
+		padding-right: 1rem;
+	}
+	& > .right {
+		width: 40%;
+		padding-left: 1rem;
+	}
+	&-section {
+		h2 {
+			margin-top: 0;
+		}
+		table {
+			width: 100%;
+		}
+		&-general {
+		}
+		&-hours {
+		}
+	}
+	input {
+		border: none;
+		border-bottom: 1px solid $gray;
+		text-align: center;
+		width: max-content;
+	}
+}

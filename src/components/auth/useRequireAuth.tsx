@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import useToken from "../useToken"
 
 export const useRequireAuth = (redirectTo: string = "/") => {
-    const {token} = useToken()
+	const { token } = useToken()
 
-    let navigate = useNavigate()
+	let navigate = useNavigate()
 
-    useEffect(() => {
-        if (token === null) navigate(redirectTo)
-    }, [token, redirectTo, navigate])
+	useEffect(() => {
+		if (token === null) navigate(redirectTo)
+	}, [token, redirectTo, navigate])
 }

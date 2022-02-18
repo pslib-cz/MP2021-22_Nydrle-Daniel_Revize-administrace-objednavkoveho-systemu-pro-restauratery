@@ -1,0 +1,56 @@
+.login {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	&-heading {
+		margin-top: 0;
+		margin-bottom: 0;
+		position: absolute;
+		top: 30%;
+	}
+	&-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: white;
+		padding: 1.2rem;
+		border-radius: 1.6rem;
+		width: 30%;
+		@include shadow();
+		& > * {
+			padding: 0.6rem;
+			border-radius: 0.8rem;
+			text-align: center;
+		}
+		& > input {
+			margin-bottom: 1.2rem;
+			border: 1px solid $gray;
+			@include transition-short();
+			&:focus {
+				border: 1px solid $pink-light;
+				outline: none;
+			}
+			&:-webkit-autofill,
+			&:-webkit-autofill:hover,
+			&:-webkit-autofill:focus,
+			&:-webkit-autofill:active {
+				-webkit-box-shadow: 0 0 0 100px white inset !important;
+			}
+		}
+		&-button {
+			border: none;
+			color: white;
+			@include gradientAnimation($orange, $pink, 0.3s);
+			@include transition-short();
+			&:hover {
+				cursor: pointer;
+			}
+			&:before {
+				border-radius: 0.8rem;
+			}
+		}
+	}
+}

@@ -5,23 +5,23 @@ import {
 	faHourglassEnd,
 	faHourglassStart,
 	faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { api } from "../../config/api";
-import Category from "../../interfaces/Category";
-import RestaurantData from "../../interfaces/Restaurant";
-import { useRequireAuth } from "../auth/useRequireAuth";
-import TrueFalseIcon from "../TrueFalseIcon";
-import useToken from "../useToken";
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React, { useEffect, useState } from "react"
+import { api } from "../../config/api"
+import Category from "../../interfaces/ICategory"
+import RestaurantData from "../../interfaces/IRestaurant"
+import { useRequireAuth } from "../auth/useRequireAuth"
+import TrueFalseIcon from "../TrueFalseIcon"
+import useToken from "../useToken"
 
 const Restaurant = (props: any) => {
-	const [restaurantData, setRestaurantData] = useState<RestaurantData>();
-	const [mixedCategory, setMixedCategory] = useState<Category>();
+	const [restaurantData, setRestaurantData] = useState<RestaurantData>()
+	const [mixedCategory, setMixedCategory] = useState<Category>()
 
-	document.title = "Provozovna";
-	useRequireAuth();
-	const { token } = useToken();
+	document.title = "Provozovna"
+	useRequireAuth()
+	const { token } = useToken()
 
 	useEffect(() => {
 		api.get("/property", {
@@ -29,10 +29,10 @@ const Restaurant = (props: any) => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			console.log(response.data.data);
-			setRestaurantData(response.data.data);
-		});
-	}, [props]);
+			console.log(response.data.data)
+			setRestaurantData(response.data.data)
+		})
+	}, [props])
 
 	useEffect(() => {
 		api.get("/category/all", {
@@ -40,15 +40,15 @@ const Restaurant = (props: any) => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			let _categories: Category[] = Object.values(response.data.data);
+			let _categories: Category[] = Object.values(response.data.data)
 
 			let _mixedCategory = _categories.filter((c: Category) => {
-				if (c.id === restaurantData?.mix_item_cat) return c;
-			})[0];
+				if (c.id === restaurantData?.mix_item_cat) return c
+			})[0]
 
-			setMixedCategory(_mixedCategory);
-		});
-	}, [restaurantData]);
+			setMixedCategory(_mixedCategory)
+		})
+	}, [restaurantData])
 
 	return (
 		<div className="page page-restaurant">
@@ -60,7 +60,7 @@ const Restaurant = (props: any) => {
 						</h2>
 					</header>
 					<div className="table-container">
-						<table className="table">
+						<table className="table restauranttable">
 							<thead className="table-header">
 								<tr>
 									<td colSpan={2}>&nbsp;</td>
@@ -81,29 +81,23 @@ const Restaurant = (props: any) => {
 								</tr>
 								<tr>
 									<td>Platební metody</td>
-									<td>
+									<td className="payments">
 										<section>
 											<span>Hotovost</span>
 											<TrueFalseIcon
-												val={
-													restaurantData?.pymt[0]
-												}
+												val={restaurantData?.pymt[0]}
 											/>
 										</section>
 										<section>
 											<span>Karta</span>
 											<TrueFalseIcon
-												val={
-													restaurantData?.pymt[1]
-												}
+												val={restaurantData?.pymt[1]}
 											/>
 										</section>
 										<section>
 											<span>Stravenky</span>
 											<TrueFalseIcon
-												val={
-													restaurantData?.pymt[2]
-												}
+												val={restaurantData?.pymt[2]}
 											/>
 										</section>
 										<section>
@@ -120,9 +114,7 @@ const Restaurant = (props: any) => {
 									<td>Zobrazovat kód jídla</td>
 									<td>
 										<TrueFalseIcon
-											val={
-												restaurantData?.show_item_code
-											}
+											val={restaurantData?.show_item_code}
 										/>
 									</td>
 								</tr>
@@ -130,9 +122,7 @@ const Restaurant = (props: any) => {
 									<td>Zobrazovat složení jídel</td>
 									<td>
 										<TrueFalseIcon
-											val={
-												restaurantData?.show_ingreds
-											}
+											val={restaurantData?.show_ingreds}
 										/>
 									</td>
 								</tr>
@@ -142,9 +132,7 @@ const Restaurant = (props: any) => {
 									</td>
 									<td>
 										<TrueFalseIcon
-											val={
-												restaurantData?.send_emails
-											}
+											val={restaurantData?.send_emails}
 										/>
 									</td>
 								</tr>
@@ -309,7 +297,7 @@ const Restaurant = (props: any) => {
 				</section>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Restaurant;
+export default Restaurant

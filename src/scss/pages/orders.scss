@@ -1,0 +1,14 @@
+.page-orders {
+	&-buttons {
+		display: flex;
+		justify-content: center;
+		&-button {
+			&-next {
+				svg {
+					margin-right: 0;
+					margin-left: 0.4rem;
+				}
+			}
+		}
+	}
+}

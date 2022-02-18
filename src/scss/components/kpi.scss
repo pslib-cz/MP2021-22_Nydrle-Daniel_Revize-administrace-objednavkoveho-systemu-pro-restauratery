@@ -1,0 +1,51 @@
+.kpi {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	width: 100%;
+	margin-bottom: 4rem;
+	@include center();
+	&-box {
+		position: relative;
+		width: 100%;
+		margin: 0 1rem;
+		padding: 2rem;
+		background-color: white;
+		color: $blue-dark;
+		border-radius: 2rem;
+		@include shadow();
+		&:first-of-type {
+			margin-left: 0;
+		}
+		&:last-of-type {
+			margin-right: 0;
+		}
+		&-heading {
+			font-size: 1.4rem;
+			margin: 0;
+			margin-bottom: 1.4rem;
+		}
+		&-values {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			&-value {
+				font-size: 3rem;
+				margin: 0;
+			}
+			&-difference {
+				display: flex;
+				align-items: center;
+				&-value {
+					position: relative;
+					top: -0.1rem;
+					font-size: 1.6rem;
+					margin-right: 1rem;
+				}
+				svg {
+					font-size: 1.4rem;
+				}
+			}
+		}
+	}
+}

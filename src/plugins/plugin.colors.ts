@@ -14,15 +14,15 @@ export const getGradient = (
 		chartArea.bottom,
 		0,
 		chartArea.top
-	);
+	)
 	gradient.addColorStop(0, YELLOW)
 	gradient.addColorStop(1, PINK)
 	return gradient
-};
+}
 
 export const defaultGradient = (
 	ctx: CanvasRenderingContext2D,
 	chartArea: ChartArea
 ) => {
 	return getGradient(ctx, chartArea)
-};
+}

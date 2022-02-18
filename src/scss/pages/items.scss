@@ -1,0 +1,59 @@
+.page-items {
+	&-links {
+		display: flex;
+		justify-content: center;
+		&-link {
+			display: inline-block;
+			padding: 0.4rem 1rem;
+			color: $blue-dark;
+			background-color: white;
+			text-decoration: none;
+			border-radius: 1rem;
+			margin-right: 0.4rem;
+			@include transition-short();
+			&:hover {
+				background-color: $orange;
+				color: white;
+			}
+		}
+	}
+	&-category {
+		scroll-margin-top: 5rem;
+		&-header {
+			display: flex;
+			align-items: center;
+			&-heading {
+				display: block;
+				margin-right: 2rem;
+			}
+			.button {
+				border: 1px solid transparent;
+			}
+			&-add-item-button {
+				border-color: $green !important;
+				&:hover {
+					background-color: $green;
+				}
+			}
+			&-edit-category-button {
+				border-color: $yellow !important;
+				&:hover {
+					background-color: $yellow;
+				}
+			}
+			&-delete-category-button {
+				border-color: $red !important;
+				&:hover {
+					background-color: $red;
+				}
+			}
+		}
+	}
+	&-add-category-button {
+		border: 1px solid transparent;
+		@extend .page-items-category-header-add-item-button;
+		border-color: $green !important;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

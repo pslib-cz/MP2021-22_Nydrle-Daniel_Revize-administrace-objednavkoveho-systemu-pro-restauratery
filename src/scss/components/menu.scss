@@ -1,0 +1,52 @@
+.menu {
+	position: fixed;
+	left: 0;
+	display: flex;
+	z-index: 1;
+	background-color: white;
+	width: 100vw;
+	justify-content: center;
+	@include shadow();
+	&-nav {
+		position: relative;
+		display: flex;
+		align-items: center;
+		&-name {
+			margin-right: 4rem;
+		}
+		&-link {
+			position: relative;
+			top: 0.2rem;
+			font-size: 1.2rem;
+			text-align: center;
+			text-decoration: none;
+			color: $blue-dark;
+			margin-right: 2rem;
+			@include transition-short();
+			@include underline();
+			&:last-of-type {
+				margin-right: 0;
+			}
+			&::after {
+				margin-top: 0.4rem;
+			}
+		}
+		&-logout-button {
+			position: absolute;
+			right: -0.5ch;
+			height: 2rem;
+			width: 2rem;
+			border: 1px solid $red;
+			background-color: white;
+			color: $red;
+			@include shadow();
+			@include transition-short();
+			border-radius: 2rem;
+			&:hover {
+				cursor: pointer;
+				background-color: $red;
+				color: white;
+			}
+		}
+	}
+}

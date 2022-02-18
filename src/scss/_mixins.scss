@@ -1,0 +1,63 @@
+@import "_root";
+
+@mixin transition-short {
+	transition: 0.1s all linear;
+}
+@mixin transition-long {
+	transition: 0.2s all linear;
+}
+
+@mixin shadow {
+	box-shadow: 0px 0px 2rem 0px $gray-darker;
+}
+
+@mixin center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@mixin gradient($colorOne, $colorTwo, $property: background) {
+	#{$property}: linear-gradient(60deg, $colorOne 0%, $colorTwo 100%);
+}
+
+@mixin gradientAnimation($start, $end, $transTime) {
+	background-size: 100%;
+	@include gradient($start, $end, background-image);
+	position: relative;
+	z-index: 100;
+	&:before {
+		@include gradient($end, $start, background-image);
+		content: "";
+		display: block;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		width: 100%;
+		z-index: -100;
+		transition: opacity $transTime;
+	}
+	&:hover {
+		&:before {
+			opacity: 1;
+		}
+	}
+}
+
+@mixin underline($color: $blue-dark) {
+	&::after {
+		display: block;
+		content: "";
+		border-bottom: 1px solid transparent;
+		transform: scaleX(0);
+		@include transition-short();
+	}
+
+	&:hover {
+		&::after {
+			transform: scaleX(1);
+			border-bottom: 1px solid $color;
+		}
+	}
+}
