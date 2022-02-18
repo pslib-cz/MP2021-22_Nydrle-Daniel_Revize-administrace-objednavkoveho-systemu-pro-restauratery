@@ -34,14 +34,14 @@ const Product = (props: {
 	return (
 		<tr key={product.code}>
 			<td>
-				<FontAwesomeIcon icon={"grip-vertical"} />
+				<FontAwesomeIcon icon={faGripVertical} />
 			</td>
 			<td>{product.code}</td>
 			<td>
 				{product.img_thumb !== "" ? (
 					<img src={product.img_thumb}></img>
 				) : (
-					<FontAwesomeIcon icon={"minus"} />
+					<FontAwesomeIcon icon={faMinus} />
 				)}
 			</td>
 			<td>{product.name}</td>
@@ -73,7 +73,7 @@ const Product = (props: {
 						)
 							deleteProduct(product.id)
 					}}>
-					<FontAwesomeIcon icon={"trash"} />
+					<FontAwesomeIcon icon={faTrash} />
 				</button>
 			</td>
 		</tr>

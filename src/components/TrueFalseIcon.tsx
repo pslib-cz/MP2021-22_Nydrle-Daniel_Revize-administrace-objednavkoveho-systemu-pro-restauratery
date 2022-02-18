@@ -5,12 +5,12 @@ import React from 'react'
 const TrueFalseIcon = ({val}: any) => {
 	return (
 		val === null ? (
-			<FontAwesomeIcon icon={"minus"} /> //null
+			<FontAwesomeIcon icon={faMinus} /> //null
 		) : (
 			val ? (
-				<FontAwesomeIcon icon={"check"} /> //true
+				<FontAwesomeIcon icon={faCheck} /> //true
 			) : (
-				<FontAwesomeIcon icon={"times"} /> //false
+				<FontAwesomeIcon icon={faTimes} /> //false
 			)
 		)
 	)

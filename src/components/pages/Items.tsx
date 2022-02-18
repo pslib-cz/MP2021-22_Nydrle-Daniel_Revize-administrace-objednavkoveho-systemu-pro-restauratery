@@ -111,7 +111,7 @@ const Items = () => {
 			<button
 				className="button page-items-add-category-button"
 				onClick={() => addCategory()}>
-				<FontAwesomeIcon icon={"plus"} />
+				<FontAwesomeIcon icon={faPlus} />
 				Přidat kategorii
 			</button>
 		</div>

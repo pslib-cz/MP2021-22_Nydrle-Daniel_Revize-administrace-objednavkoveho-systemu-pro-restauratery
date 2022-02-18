@@ -53,7 +53,7 @@ const Layout = ({ children, clearToken, ...rest }: any) => {
 					<button
 						onClick={() => logout()}
 						className="menu-nav-logout-button">
-						<FontAwesomeIcon icon={"power-off"} />
+						<FontAwesomeIcon icon={faPowerOff} />
 					</button>
 				</nav>
 			</div>
