@@ -64,7 +64,7 @@ const Category = (props: {
 					{category.name}
 				</h2>
 				<button className="button page-items-category-header-edit-category-button">
-					<FontAwesomeIcon icon={faPencilAlt} />
+					<FontAwesomeIcon icon={"pencil-alt"} />
 					Upravit kategorii
 				</button>
 				<button
@@ -77,13 +77,13 @@ const Category = (props: {
 						)
 							deleteCategory(category.id)
 					}}>
-					<FontAwesomeIcon icon={faTrash} />
+					<FontAwesomeIcon icon={"trash"} />
 					Odstranit kategorii
 				</button>
 				<button
 					className="button page-items-category-header-add-item-button"
 					onClick={() => addItem(category.id)}>
-					<FontAwesomeIcon icon={faPlus} />
+					<FontAwesomeIcon icon={"plus"} />
 					Přidat novou položku
 				</button>
 			</header>

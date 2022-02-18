@@ -129,3 +129,17 @@
 		}
 	}
 }
+
+@media screen and (max-width: 1200px) {
+	.table {
+		display: block;
+		max-width: -moz-fit-content;
+		max-width: fit-content;
+		overflow-x: auto;
+		white-space: nowrap;
+		width: 100%;
+	}
+	.itemstable {
+		overflow-x: auto !important;
+	}
+}

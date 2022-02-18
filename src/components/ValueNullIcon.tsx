@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react"
 
 const ValueNullIcon = ({ val }: any) => {
-	return val === "" ? <FontAwesomeIcon icon={faMinus} /> : <span>{val}</span>
+	return val === "" ? <FontAwesomeIcon icon={"minus"} /> : <span>{val}</span>
 }
 
 export default ValueNullIcon

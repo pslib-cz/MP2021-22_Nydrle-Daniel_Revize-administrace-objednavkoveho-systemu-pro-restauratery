@@ -52,7 +52,7 @@ const Orders = () => {
 						++temp
 						setPageCounter(temp)
 					}}>
-					<FontAwesomeIcon icon={faChevronLeft} />
+					<FontAwesomeIcon icon={"chevron-left"} />
 					starší
 				</button>
 				{pageCounter > 1 && (
@@ -64,7 +64,7 @@ const Orders = () => {
 							setPageCounter(temp)
 						}}>
 						novější
-						<FontAwesomeIcon icon={faChevronRight} />
+						<FontAwesomeIcon icon={"chevron-right"} />
 					</button>
 				)}
 			</div>

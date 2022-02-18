@@ -29,13 +29,13 @@ export const Kpi = (values: {
 						</small>
 
 						{values.today > values.yesterday && (
-							<FontAwesomeIcon icon={faArrowUp} />
+							<FontAwesomeIcon icon={"arrow-up"} />
 						)}
 						{values.today < values.yesterday && (
-							<FontAwesomeIcon icon={faArrowDown} />
+							<FontAwesomeIcon icon={"arrow-down"} />
 						)}
 						{values.today === values.yesterday && (
-							<FontAwesomeIcon icon={faMinus} />
+							<FontAwesomeIcon icon={"minus"} />
 						)}
 					</div>
 				)}

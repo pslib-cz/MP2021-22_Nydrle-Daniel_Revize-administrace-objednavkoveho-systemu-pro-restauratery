@@ -175,22 +175,22 @@ const Restaurant = (props: any) => {
 							<thead className="table-header">
 								<tr>
 									<th>
-										<FontAwesomeIcon icon={faCalendarDay} />
+										<FontAwesomeIcon icon={"calendar-day"} />
 										Den
 									</th>
 									<th>
-										<FontAwesomeIcon icon={faDoorOpen} />
+										<FontAwesomeIcon icon={"door-open"} />
 										Otevřeno
 									</th>
 									<th>
 										<FontAwesomeIcon
-											icon={faHourglassStart}
+											icon={"hourglass-start"}
 										/>
 										Začátek
 									</th>
 									<th>
 										<FontAwesomeIcon
-											icon={faHourglassEnd}
+											icon={"hourglass-end"}
 										/>
 										Konec
 									</th>
@@ -200,7 +200,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Pondělí</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>
@@ -208,7 +208,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Úterý</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>
@@ -216,7 +216,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Středa</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>
@@ -224,7 +224,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Čtvrtek</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>
@@ -232,7 +232,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Pátek</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>
@@ -240,7 +240,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Sobota</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>
@@ -248,7 +248,7 @@ const Restaurant = (props: any) => {
 								<tr>
 									<td>Neděle</td>
 									<td>
-										<FontAwesomeIcon icon={faCheck} />
+										<FontAwesomeIcon icon={"check"} />
 									</td>
 									<td>00:00</td>
 									<td>23:59</td>

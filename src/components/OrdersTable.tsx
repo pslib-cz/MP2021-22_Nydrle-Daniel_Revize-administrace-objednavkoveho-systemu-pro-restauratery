@@ -28,26 +28,26 @@ const OrdersTable = (props: Props) => {
 				<thead className="table-header ordertable-header">
 					<tr>
 						<th>
-							<FontAwesomeIcon icon={faHashtag} />
+							<FontAwesomeIcon icon={"hashtag"} />
 							Objednávka
 						</th>
 						<th>
-							<FontAwesomeIcon icon={faClock} /> Čas
+							<FontAwesomeIcon icon={"clock"} /> Čas
 						</th>
 						<th>
-							<FontAwesomeIcon icon={faDollarSign} /> Cena
+							<FontAwesomeIcon icon={"dollar-sign"} /> Cena
 						</th>
 						<th>
-							<FontAwesomeIcon icon={faPhoneAlt} /> Telefon
+							<FontAwesomeIcon icon={"phone-alt"} /> Telefon
 						</th>
 						<th>
-							<FontAwesomeIcon icon={faList} /> Položky
+							<FontAwesomeIcon icon={"list"} /> Položky
 						</th>
 						<th>
-							<FontAwesomeIcon icon={faSmile} /> Jméno
+							<FontAwesomeIcon icon={"smile"} /> Jméno
 						</th>
 						<th>
-							<FontAwesomeIcon icon={faHome} /> Adresa
+							<FontAwesomeIcon icon={"home"} /> Adresa
 						</th>
 					</tr>
 				</thead>
