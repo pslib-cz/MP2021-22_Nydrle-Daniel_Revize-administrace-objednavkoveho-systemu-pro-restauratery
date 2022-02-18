@@ -11,7 +11,7 @@ jobs:
     - name: Use Node.js 14
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '18'
       
     - name: 🔨 Build Project
       run: |
@@ -24,3 +24,4 @@ jobs:
         server: ${{ secrets.SERVER }}
         username: ${{ secrets.HOST }}
         password: ${{ secrets.PASSWORD }}
+        protocol: ftps
