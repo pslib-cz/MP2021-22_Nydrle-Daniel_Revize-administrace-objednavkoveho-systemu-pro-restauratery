@@ -22,38 +22,61 @@
 		&-header {
 			display: flex;
 			align-items: center;
+			padding: 1rem 0;
+			&--is-edited {
+				display: flex;
+				align-items: center;
+				padding: 1rem 0;
+				section {
+					display: flex;
+					flex-direction: column;
+					margin-right: 1rem;
+					span {
+						margin-top: 1rem;
+					}
+				}
+				&--name {
+					input {
+						font-size: 1.6rem;
+					}
+				}
+			}
 			&-heading {
 				display: block;
-				margin-right: 2rem;
+				margin: 0 2rem 0 0;
 			}
 			.button {
 				border: 1px solid transparent;
 			}
-			&-add-item-button {
-				border-color: $green !important;
-				&:hover {
-					background-color: $green;
+			&-button {
+				&--add-item {
+					border-color: $green !important;
+					&:hover {
+						background-color: $green;
+					}
 				}
-			}
-			&-edit-category-button {
-				border-color: $yellow !important;
-				&:hover {
-					background-color: $yellow;
+				&--edit-category {
+					border-color: $yellow !important;
+					&:hover {
+						background-color: $yellow;
+					}
 				}
-			}
-			&-delete-category-button {
-				border-color: $red !important;
-				&:hover {
-					background-color: $red;
+				&--delete-category {
+					border-color: $red !important;
+					&:hover {
+						background-color: $red;
+					}
 				}
 			}
 		}
 	}
-	&-add-category-button {
-		border: 1px solid transparent;
-		@extend .page-items-category-header-add-item-button;
-		border-color: $green !important;
-		margin-left: auto;
-		margin-right: auto;
+	&-button {
+		&--add-category {
+			border: 1px solid transparent;
+			@extend .page-items-category-header-button--add-item;
+			border-color: $green !important;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	}
 }

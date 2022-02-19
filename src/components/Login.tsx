@@ -18,9 +18,6 @@ const Login = ({ setToken }: any) => {
 					navigate("/")
 				}
 			})
-			.catch((error) => {
-				console.log(error)
-			})
 	}
 
 	return (

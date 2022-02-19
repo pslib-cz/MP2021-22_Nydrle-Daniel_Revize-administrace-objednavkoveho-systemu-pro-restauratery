@@ -24,7 +24,6 @@ const Orders = () => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			console.log(response.data.data)
 			setOrders(Object.values(response.data.data))
 		})
 	}, [])

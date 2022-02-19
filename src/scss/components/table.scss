@@ -26,6 +26,13 @@
 	}
 	&-body {
 		border-radius: 1.6rem;
+		&-row {
+			&--is-edited {
+				td {
+					background-color: $gray;
+				}
+			}
+		}
 		tr {
 			background-color: white;
 			@include transition-short();
@@ -56,46 +63,48 @@
 				.fa-grip-vertical {
 					color: $gray-darker;
 				}
-				// 	.fa-times,
-				// 	.fa-check {
-				// 		height: 1rem;
-				// 		width: 1rem;
-				// 		padding: 0.2rem;
-				// 		border-radius: 1rem;
-				// 		@include transition-short();
-				// 		&:hover {
-				// 			cursor: pointer;
-				// 			color: white;
-				// 		}
-				// 	}
-				// 	.fa-check {
-				// 		&:hover {
-				// 			background-color: $red;
-				// 		}
-				// 	}
-				// 	.fa-times {
-				// 		&:hover {
-				// 			background-color: $green;
-				// 		}
-				// 	}
-				// }
-				// &-button {
-				// 	height: 1.6rem;
-				// 	width: 1.6rem;
-				// 	border-radius: 1.6rem;
-				// 	border: none;
-				// 	background-color: transparent;
-				// 	@include transition-short();
-				// 	&:hover {
-				// 		cursor: pointer;
-				// 		color: white;
-				// 	}
-				// 	&-delete {
-				// 		color: $red;
-				// 		&:hover {
-				// 			background-color: $red;
-				// 		}
-				// 	}
+			}
+			&-button {
+				height: 1.6rem !important;
+				width: 1.6rem !important;
+				padding: 0;
+				border-radius: 1.6rem;
+				border: 1px solid #000;
+				background-color: transparent;
+				@include transition-short();
+				&:last-of-type {
+					margin-right: 0;
+				}
+				&--edit-product {
+					border-color: $orange;
+				}
+				&--delete-product {
+					border-color: $red;
+					color: $red;
+					&:hover {
+						background-color: $red;
+					}
+				}
+				&--save-product {
+					background-color: white;
+					border: 1px solid $green;
+					width: auto !important;
+					height: auto !important;
+					padding: 0.4rem 0.6rem;
+					&:hover {
+						background-color: $green;
+					}
+					svg {
+						margin-left: 0.4rem;
+					}
+				}
+				&:hover {
+					cursor: pointer;
+					color: white;
+				}
+				svg {
+					margin-right: 0;
+				}
 			}
 		}
 	}

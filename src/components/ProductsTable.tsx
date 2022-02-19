@@ -16,12 +16,17 @@ import TrueFalseIcon from "./TrueFalseIcon"
 import useToken from "./useToken"
 import ValueNullIcon from "./ValueNullIcon"
 
-const ProductsTable = (filteredProducts: IProduct[]) => {
+const ProductsTable = (props: {
+	filteredProducts: IProduct[]
+	callbackSetFilteredProducts: (products: IProduct[]) => void
+}) => {
+	const { filteredProducts, callbackSetFilteredProducts } = props
 	const [products, setProducts] = useState<IProduct[]>([])
 	const { token } = useToken()
 
 	const deleteProduct = (id: number): void => {
 		setProducts(products.filter((p) => p.id !== id))
+		callbackSetFilteredProducts(products.filter((p) => p.id !== id))
 	}
 
 	useEffect(() => {
@@ -44,14 +49,15 @@ const ProductsTable = (filteredProducts: IProduct[]) => {
 						<th>Aktivní</th>
 						<th>Rozvoz</th>
 						<th>18+</th>
-						<th>Odstranit</th>
+						<th>Interakce</th>
 					</tr>
 				</thead>
 				<tbody className="table-body itemstable-body">
 					{products.map((product: IProduct) => {
 						return (
 							<Product
-								product={product}
+								key={product.id}
+								propProduct={product}
 								callbackDeleteProduct={(id: number) =>
 									deleteProduct(id)
 								}

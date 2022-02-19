@@ -12,12 +12,14 @@ import { api } from "../../config/api"
 import Category from "../../interfaces/ICategory"
 import RestaurantData from "../../interfaces/IRestaurant"
 import { useRequireAuth } from "../auth/useRequireAuth"
+import UseDidUpdateEffect from "../functions/UseDidUpdateEffect"
 import TrueFalseIcon from "../TrueFalseIcon"
 import useToken from "../useToken"
 
 const Restaurant = (props: any) => {
 	const [restaurantData, setRestaurantData] = useState<RestaurantData>()
 	const [mixedCategory, setMixedCategory] = useState<Category>()
+	const [hours, setHours] = useState<any[]>([])
 
 	document.title = "Provozovna"
 	useRequireAuth()
@@ -29,12 +31,20 @@ const Restaurant = (props: any) => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			console.log(response.data.data)
 			setRestaurantData(response.data.data)
+			let _tempHours: object[] = [] //{open: string, close: string}
+			Object.values(response.data.data.hours).forEach((d: any) => {
+				let _tempDay = Object.entries(d[0]).map(([open, close]) => ({
+					open,
+					close,
+				}))
+				_tempHours.push(_tempDay[0])
+			})
+			setHours(_tempHours)
 		})
 	}, [props])
 
-	useEffect(() => {
+	UseDidUpdateEffect(() => {
 		api.get("/category/all", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -144,19 +154,29 @@ const Restaurant = (props: any) => {
 								</tr>
 								<tr>
 									<td>Poznámka - hlavička stránky</td>
-									<td>{}</td>
+									<td>{restaurantData?.dlv_text}</td>
 								</tr>
 								<tr>
 									<td>Poznámka - potvrzení objednávky</td>
-									<td>{}</td>
+									<td>{restaurantData?.options.memo_2_left}</td>
 								</tr>
 								<tr>
 									<td>Facebook</td>
-									<td>{}</td>
+									<td>
+										{
+											restaurantData?.options.social_links
+												.fb
+										}
+									</td>
 								</tr>
 								<tr>
 									<td>Instagram</td>
-									<td>{}</td>
+									<td>
+										{
+											restaurantData?.options.social_links
+												.ig
+										}
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -202,56 +222,56 @@ const Restaurant = (props: any) => {
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[0]?.open}</td>
+									<td>{hours[0]?.close}</td>
 								</tr>
 								<tr>
 									<td>Úterý</td>
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[1]?.open}</td>
+									<td>{hours[1]?.close}</td>
 								</tr>
 								<tr>
 									<td>Středa</td>
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[2]?.open}</td>
+									<td>{hours[2]?.close}</td>
 								</tr>
 								<tr>
 									<td>Čtvrtek</td>
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[3]?.open}</td>
+									<td>{hours[3]?.close}</td>
 								</tr>
 								<tr>
 									<td>Pátek</td>
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[4]?.open}</td>
+									<td>{hours[4]?.close}</td>
 								</tr>
 								<tr>
 									<td>Sobota</td>
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[5]?.open}</td>
+									<td>{hours[5]?.close}</td>
 								</tr>
 								<tr>
 									<td>Neděle</td>
 									<td>
 										<FontAwesomeIcon icon={faCheck} />
 									</td>
-									<td>00:00</td>
-									<td>23:59</td>
+									<td>{hours[6]?.open}</td>
+									<td>{hours[6]?.close}</td>
 								</tr>
 							</tbody>
 						</table>

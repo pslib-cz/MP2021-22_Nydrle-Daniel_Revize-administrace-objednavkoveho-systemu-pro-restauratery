@@ -40,7 +40,6 @@ const Kpis = (props: Props) => {
 	})
 
 	useEffect(() => {
-		console.log(props)
 		setOrders({
 			today: props.kpiData[1]?.orders,
 			yesterday: props.kpiData[0]?.orders,

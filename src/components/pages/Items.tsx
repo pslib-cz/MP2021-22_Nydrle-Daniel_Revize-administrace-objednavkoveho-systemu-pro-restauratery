@@ -28,11 +28,7 @@ const Items = () => {
 			},
 		})
 			.then((response) => {
-				console.log(response.data.data)
 				setCategories(Object.values(response.data.data))
-			})
-			.catch((error) => {
-				console.log(error)
 			})
 	}
 
@@ -44,9 +40,6 @@ const Items = () => {
 		})
 			.then((response) => {
 				setProducts(response.data.data)
-			})
-			.catch((error) => {
-				console.log(error)
 			})
 	}
 
@@ -70,7 +63,6 @@ const Items = () => {
 				},
 			}
 		).then((response) => {
-			console.log(response)
 			setCategories([...categories, response.data.data])
 		})
 		getCategories()
@@ -99,7 +91,7 @@ const Items = () => {
 				{
 					return (
 						<Category
-							category={category}
+							propCategory={category}
 							propProducts={getFilteredProducts(category.id)}
 							callbackDeleteCategory={(id: number): void =>
 								deleteCategory(id)
@@ -109,7 +101,7 @@ const Items = () => {
 				}
 			})}
 			<button
-				className="button page-items-add-category-button"
+				className="button page-items-button--add-category"
 				onClick={() => addCategory()}>
 				<FontAwesomeIcon icon={faPlus} />
 				Přidat kategorii

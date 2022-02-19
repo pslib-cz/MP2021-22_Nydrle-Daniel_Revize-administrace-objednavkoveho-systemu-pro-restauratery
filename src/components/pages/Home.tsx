@@ -35,7 +35,6 @@ const Home = () => {
 		}).then((response) => {
 			let _chartData: ChartData[] = Array.from(response.data.data)
 			setChartData(_chartData)
-			console.log(_chartData.slice(Math.max(_chartData.length - 2, 0)))
 			setKpiData(_chartData.slice(Math.max(_chartData.length - 2, 0)))
 		})
 	}, [])
