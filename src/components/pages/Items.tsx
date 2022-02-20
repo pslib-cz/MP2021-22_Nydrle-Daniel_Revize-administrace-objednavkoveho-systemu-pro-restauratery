@@ -26,10 +26,9 @@ const Items = () => {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
+		}).then((response) => {
+			setCategories(Object.values(response.data.data))
 		})
-			.then((response) => {
-				setCategories(Object.values(response.data.data))
-			})
 	}
 
 	let getProducts = () => {
@@ -37,10 +36,9 @@ const Items = () => {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
+		}).then((response) => {
+			setProducts(response.data.data)
 		})
-			.then((response) => {
-				setProducts(response.data.data)
-			})
 	}
 
 	let getFilteredProducts = (categoryId: number): IProduct[] => {
@@ -69,7 +67,7 @@ const Items = () => {
 	}
 
 	let deleteCategory = (id: number) => {
-		setCategories(categories.filter(c => c.id !== id))
+		setCategories(categories.filter((c) => c.id !== id))
 	}
 
 	return (
@@ -86,6 +84,13 @@ const Items = () => {
 						)
 					}
 				})}
+
+				<button
+					className="button page-items-button--add-category"
+					onClick={() => addCategory()}>
+					<FontAwesomeIcon icon={faPlus} />
+					Přidat kategorii
+				</button>
 			</div>
 			{categories.map((category: ICategory) => {
 				{
@@ -100,12 +105,6 @@ const Items = () => {
 					)
 				}
 			})}
-			<button
-				className="button page-items-button--add-category"
-				onClick={() => addCategory()}>
-				<FontAwesomeIcon icon={faPlus} />
-				Přidat kategorii
-			</button>
 		</div>
 	)
 }

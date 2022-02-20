@@ -8,9 +8,16 @@
 		padding: 1.4rem;
 		border-radius: 1.6rem;
 		position: relative;
-		width: 45%;
+		width: 100%;
+		margin: 0px 1rem;
 		height: auto !important;
 		@include shadow();
+		&:first-of-type {
+			margin-left: 0;
+		}
+		&:last-of-type {
+			margin-right: 0;
+		}
 		canvas {
 			width: 100% !important;
 			height: 100% !important;

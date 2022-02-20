@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&family=Raleway:wght@300;400;500;600&family=Work+Sans:wght@100;200;300;400;500;600&display=swap');
+
 :root {
 	color: $blue-dark !important;
 }
@@ -9,6 +11,7 @@ body {
 	background-color: $gray;
 	overflow-x: hidden;
 	scroll-behavior: smooth;
+	font-family: "Poppins", sans-serif !important;
 }
 
 body {

@@ -1,5 +1,8 @@
 export default interface IChartJsData {
 	labels: any[]
 	datasets: any[]
-	options: {}
+	options: {
+		scales?: object
+		responsive?: boolean
+	}
 }

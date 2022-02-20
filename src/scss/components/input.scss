@@ -1,6 +1,10 @@
 input {
 	border: none;
-	border-bottom: 1px solid $gray-darker;
+	color: $blue-extradark;
+	padding: 0.4rem 0.8rem;
+	border-radius: 1rem;
+	font-family: "Poppins", sans-serif;
+
 	&:focus {
 		outline: none;
 	}

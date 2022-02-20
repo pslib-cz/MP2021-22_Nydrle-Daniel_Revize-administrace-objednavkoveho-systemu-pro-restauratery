@@ -81,47 +81,47 @@ const Product = (props: {
 
 	return (
 		<>
-			{!isEdited && (
-				<tr>
-					<td>
+			 	{!isEdited && (
+				<tr className="product">
+					<td className="grip">
 						<FontAwesomeIcon icon={faGripVertical} />
 					</td>
-					<td>{product.code}</td>
-					<td>
+					<td className="code">{product.code}</td>
+					<td className="img">
 						{product.img_thumb !== "" ? (
 							<img src={product.img_thumb}></img>
 						) : (
 							<FontAwesomeIcon icon={faMinus} />
 						)}
 					</td>
-					<td>{product.name}</td>
-					<td>{product.px}&nbsp;Kč</td>
-					<td>{product.pkpx}&nbsp;Kč</td>
-					<td>
+					<td className="name">{product.name}</td>
+					<td className="px">{product.px}&nbsp;Kč</td>
+					<td className="pkpx">{product.pkpx}&nbsp;Kč</td>
+					<td className="amount">
 						<ValueNullIcon val={product.amount} />
 					</td>
-					<td>
+					<td className="alergeny">
 						<ValueNullIcon val={product.alergeny} />
 					</td>
-					<td>
+					<td className="active">
 						<TrueFalseIcon val={product.active} />
 					</td>
-					<td>
+					<td className="is_supplement">
 						<TrueFalseIcon val={product.is_supplement} />
 					</td>
-					<td>
+					<td className="is_restricted">
 						<TrueFalseIcon val={product.is_restricted} />
 					</td>
-					<td>
+					<td className="buttons">
 						<button
-							className="button itemstable-body-button itemstable-body-button--edit-product"
+							className="button productstable-body-button productstable-body-button--edit-product"
 							onClick={() => {
 								setIsEdited(true)
 							}}>
 							<FontAwesomeIcon icon={faPencilAlt} />
 						</button>
 						<button
-							className="button itemstable-body-button itemstable-body-button--delete-product"
+							className="button productstable-body-button productstable-body-button--delete-product"
 							onClick={() => {
 								if (
 									window.confirm(
@@ -136,11 +136,11 @@ const Product = (props: {
 				</tr>
 			)}
 			{isEdited && (
-				<tr className="table-body-row--is-edited">
-					<td>
+				<tr className="product--is-edited">
+					<td className="grip">
 						<FontAwesomeIcon icon={faGripVertical} />
 					</td>
-					<td>
+					<td className="code">
 						<input
 							type="text"
 							value={product.code}
@@ -149,14 +149,14 @@ const Product = (props: {
 							}
 						/>
 					</td>
-					<td>
+					<td className="img">
 						{product.img_thumb !== "" ? (
 							<img src={product.img_thumb}></img>
 						) : (
 							<FontAwesomeIcon icon={faMinus} />
 						)}
 					</td>
-					<td>
+					<td className="name">
 						<input
 							type="text"
 							value={product.name}
@@ -165,7 +165,7 @@ const Product = (props: {
 							}
 						/>
 					</td>
-					<td>
+					<td className="px">
 						<input
 							type="number"
 							value={product.px}
@@ -177,7 +177,7 @@ const Product = (props: {
 							}
 						/>
 					</td>
-					<td>
+					<td className="pkpx">
 						<input
 							type="number"
 							value={product.pkpx}
@@ -189,7 +189,7 @@ const Product = (props: {
 							}
 						/>
 					</td>
-					<td>
+					<td className="amount">
 						<input
 							type="text"
 							value={product.amount}
@@ -201,7 +201,7 @@ const Product = (props: {
 							}
 						/>
 					</td>
-					<td>
+					<td className="alergeny">
 						<input
 							type="text"
 							value={product.alergeny}
@@ -213,7 +213,7 @@ const Product = (props: {
 							}
 						/>
 					</td>
-					<td>
+					<td className="active">
 						<input
 							type="checkbox"
 							checked={!!product.active}
@@ -225,7 +225,7 @@ const Product = (props: {
 							}}
 						/>
 					</td>
-					<td>
+					<td className="is_supplement">
 						<input
 							type="checkbox"
 							checked={!!product.is_supplement}
@@ -237,7 +237,7 @@ const Product = (props: {
 							}}
 						/>
 					</td>
-					<td>
+					<td className="is_restricted">
 						<input
 							type="checkbox"
 							checked={!!product.is_restricted}
@@ -249,9 +249,9 @@ const Product = (props: {
 							}}
 						/>
 					</td>
-					<td>
+					<td className="buttons">
 						<button
-							className="button itemstable-body-button itemstable-body-button--save-product"
+							className="button productstable-body-button productstable-body-button--save-product"
 							onClick={() => {
 								editProduct(
 									product.id,

@@ -1,0 +1,127 @@
+.productstable {
+	&-header {
+        .img,
+		.active,
+		.is_supplement,
+		.is_restricted,
+		.buttons {
+			text-align: center;
+			svg {
+				margin: 0;
+			}
+		}
+	}
+	&-body {
+		td {
+			.fa-grip-vertical {
+				color: $gray-darker;
+			}
+		}
+		&-button {
+			height: 1.6rem !important;
+			width: 1.6rem !important;
+			padding: 0;
+			border-radius: 1.6rem;
+			border: 1px solid #000;
+			background-color: transparent;
+			@include transition-short();
+			&:last-of-type {
+				margin-right: 0;
+			}
+			&--edit-product {
+				border-color: $orange;
+			}
+			&--delete-product {
+				border-color: $red;
+				color: $red;
+				&:hover {
+					background-color: $red;
+				}
+			}
+			&--save-product {
+				background-color: white;
+				border: 1px solid $green;
+				width: auto !important;
+				height: auto !important;
+				padding: 0.4rem 0.6rem;
+				&:hover {
+					background-color: $green;
+				}
+				svg {
+					margin-left: 0.4rem;
+				}
+			}
+			&:hover {
+				cursor: pointer;
+				color: white;
+			}
+			svg {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.product {
+	&--is-edited {
+		td {
+			width: 10rem;
+			background-color: $pink-extralight;
+			input {
+                position: relative;
+                left: -0.3rem;
+				display: block;
+				width: 80%;
+			}
+		}
+        .img {
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        .name {
+            width: 20rem;
+        }
+        .img,
+		.active,
+		.is_supplement,
+		.is_restricted {
+			height: 100%;
+			input {
+                position: static;
+				display: block;
+				width: auto;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+		.buttons {
+			.button {
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+	}
+    .img {
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .img,
+	.active,
+	.is_supplement,
+	.is_restricted {
+		text-align: center;
+		svg {
+			margin: 0;
+		}
+	}
+	.buttons {
+		display: flex;
+		justify-content: center;
+	}
+}

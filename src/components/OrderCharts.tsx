@@ -35,7 +35,7 @@ interface Props {
 
 const OrderCharts = (props: Props) => {
 	const [chartData, setChartData] = useState<IChartData[]>([])
-	const [incomeData, setIncomeData] = useState<IChartJsData>({
+	const [revenueData, setRevenueData] = useState<IChartJsData>({
 		labels: [],
 		datasets: [],
 		options: {},
@@ -45,19 +45,19 @@ const OrderCharts = (props: Props) => {
 		datasets: [],
 		options: {},
 	})
-	const orderChartRef = useRef<ChartJS>(null)
+	const revenueChartRef = useRef<ChartJS>(null)
 
 	useEffect(() => {
-		let chart = orderChartRef.current
+		let chart = revenueChartRef.current
 		if (!chart) {
 			return
 		}
 
-		setIncomeData({
+		let _revenueData = {
 			labels: props.chartData.map((c) => c.date),
 			datasets: [
 				{
-					id: 1,
+					id: "revenue",
 					type: "bar" as const,
 					label: "Tržba",
 					data: props.chartData.map((c) => c.revenue),
@@ -69,8 +69,37 @@ const OrderCharts = (props: Props) => {
 			],
 			options: {
 				responsive: true,
+				interaction: {
+					mode: "index",
+					intersect: false,
+				},
+				plugins: {
+					tooltip: {
+						callbacks: {
+							label: (item: any) => {
+								return `${item.dataset.label}: ${item.parsed.y} Kč`
+							},
+						},
+					},
+				},
+				scales: {
+					revenue: {
+						position: "left",
+						ticks: {
+							callback: (value: number | string) => {
+								return `${value} Kč`
+							},
+						},
+						title: {
+							display: true,
+							text: "Tržba",
+						},
+					},
+				},
 			},
-		})
+		}
+
+		setRevenueData(_revenueData)
 
 		let _orderData = {
 			labels: props.chartData.map((c) => c.date),
@@ -79,14 +108,14 @@ const OrderCharts = (props: Props) => {
 					id: "orders",
 					order: 2,
 					type: "line" as const,
-					label: "Objednávky",
+					label: "Počet objednávek",
 					yAxisID: "orders",
 					data: props.chartData.map((c) => c.orders),
 					fill: true,
 					borderColor: clr.YELLOW,
 					borderWidth: 0,
-					backgroundColor: `${clr.YELLOW}66`,
-					tension: 0.2,
+					backgroundColor: `${clr.YELLOW}88`,
+					tension: 0.4,
 				},
 			],
 			options: {
@@ -96,22 +125,35 @@ const OrderCharts = (props: Props) => {
 					intersect: false,
 				},
 				stacked: false,
-				scales: {
-					yAxes: [
-						{
-							id: "orders",
-							type: "linear" as const,
-							position: "left",
-						},
-						{
-							id: "averages",
-							type: "linear" as const,
-							position: "right" as const,
-							grid: {
-								drawOnChartArea: false,
+				plugins: {
+					tooltip: {
+						callbacks: {
+							label: (item: any) => {
+								return item.dataset.label === "Průměrná útrata"
+									? `${item.dataset.label}: ${item.parsed.y} Kč`
+									: `${item.dataset.label}: ${item.parsed.y}`
 							},
 						},
-					],
+					},
+				},
+				scales: {
+					orders: {
+						type: "linear",
+						display: true,
+						position: "left" as const,
+						grid: {
+							drawOnChartArea: false,
+						},
+						title: {
+							display: true,
+							text: "Počet objednávek",
+						},
+					},
+					averages: {
+						type: "linear",
+						display: true,
+						position: "right" as const,
+					},
 				},
 			},
 		}
@@ -119,7 +161,7 @@ const OrderCharts = (props: Props) => {
 		let averages: number[] = []
 
 		props.chartData.forEach((c: IChartData) => {
-			averages.push(parseInt(c.revenue) / c.orders)
+			averages.push(Math.round(parseInt(c.revenue) / c.orders))
 		})
 
 		setOrderData({
@@ -146,14 +188,40 @@ const OrderCharts = (props: Props) => {
 	return (
 		<div className="charts">
 			<div className="charts-chartcontainer">
-				<Chart type="bar" data={{ ...incomeData }} />
+				<Chart
+					type="bar"
+					data={{ ...revenueData }}
+					options={{
+						...revenueData.options,
+						scales: {
+							...revenueData.options.scales,
+						},
+					}}
+					ref={revenueChartRef}
+				/>
 			</div>
 			<div className="charts-chartcontainer">
 				<Chart
 					type="line"
-					ref={orderChartRef}
-					datasetIdKey="order"
 					data={orderData}
+					options={{
+						...orderData.options,
+						scales: {
+							...orderData.options.scales,
+							averages: {
+								position: "right",
+								ticks: {
+									callback: (value: number | string) => {
+										return `${value} Kč`
+									},
+								},
+								title: {
+									display: true,
+									text: "Průměrná útrata",
+								},
+							},
+						},
+					}}
 				/>
 			</div>
 		</div>

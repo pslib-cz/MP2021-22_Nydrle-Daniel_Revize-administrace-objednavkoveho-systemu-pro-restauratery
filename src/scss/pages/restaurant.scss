@@ -6,6 +6,15 @@
 	& > .left {
 		width: 60%;
 		padding-right: 1rem;
+		.table {
+			&-body {
+				tr {
+					td {
+						width: 50%;
+					}
+				}
+			}
+		}
 	}
 	& > .right {
 		width: 40%;

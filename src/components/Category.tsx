@@ -98,24 +98,19 @@ const Category = (props: {
 	}
 
 	return (
-		<section
-			key={category.id}
-			id={category.name}
-			className="page-items-category">
+		<section key={category.id} id={category.name} className="category">
 			{!isEdited && (
-				<header className="page-items-category-header">
-					<h2 className="page-items-category-header-heading">
-						{category.name}
-					</h2>
+				<header className="category-header">
+					<h2 className="category-header-heading">{category.name}</h2>
 					<button
-						className="button page-items-category-header-button--edit-category"
+						className="button category-header-button--edit-category"
 						onClick={() => setIsEdited(true)}>
 						<FontAwesomeIcon icon={faPencilAlt} />
 						Upravit kategorii
 					</button>
 					{products.length === 0 && (
 						<button
-							className="button page-items-category-header-button--delete-category"
+							className="button category-header-button--delete-category"
 							onClick={() => {
 								if (
 									window.confirm(
@@ -129,68 +124,82 @@ const Category = (props: {
 						</button>
 					)}
 					<button
-						className="button page-items-category-header-button--add-item"
+						className="button category-header-button--add-item"
 						onClick={() => addItem(category.id)}>
 						<FontAwesomeIcon icon={faPlus} />
 						Přidat novou položku
 					</button>
-					<p>{category.desc}</p>
+					{category.desc !== "" && (
+						<p>{category.desc}</p>
+					)}
 				</header>
 			)}
 			{isEdited && (
-				<header className="page-items-category-header--is-edited">
-					<section className="page-items-category-header--is-edited--name">
-						<input
-							type="text"
-							value={category.name}
-							onChange={(e) => {
-								setCategory({
-									...category,
-									name: e.target.value,
-								})
-							}}
-						/>
-						<span>Název</span>
-					</section>
-					<section>
-						<input
-							type="checkbox"
-							checked={!!category.has_images}
-							onChange={(e) => {
-								setCategory({
-									...category,
-									has_images: +e.target.checked,
-								})
-							}}
-						/>
-						<span>Zobrazovat obrázky</span>
-					</section>
-					<section>
-						<input
-							type="text"
-							value={category.desc}
-							onChange={(e) => {
-								setCategory({
-									...category,
-									desc: e.target.value,
-								})
-							}}
-						/>
-						<span>Popisek</span>
-					</section>
-					<button
-						className="button page-items-category-header-button--add-item"
-						onClick={() =>
-							editCategory(
-								category.id,
-								category.name,
-								!!category.has_images,
-								category.desc
-							)
-						}>
-						<FontAwesomeIcon icon={faCheck} />
-						Uložit
-					</button>
+				<header className="category-header category-header--is-edited table-container">
+					<table className="table">
+						<thead className="table-header">
+							<tr>
+								<th className="name">Název</th>
+								<th className="description">Popis</th>
+								<th className="has_images">Zobrazovat obrázky</th>
+								<th className="save">Uložit</th>
+							</tr>
+						</thead>
+						<tbody className="table-body">
+							<tr>
+								<td className="name">
+									<input
+										type="text"
+										value={category.name}
+										onChange={(e) => {
+											setCategory({
+												...category,
+												name: e.target.value,
+											})
+										}}
+									/>
+								</td>
+								<td className="description">
+									<input
+										type="text"
+										value={category.desc}
+										onChange={(e) => {
+											setCategory({
+												...category,
+												desc: e.target.value,
+											})
+										}}
+									/>
+								</td>
+								<td className="has_images">
+									<input
+										type="checkbox"
+										checked={!!category.has_images}
+										onChange={(e) => {
+											setCategory({
+												...category,
+												has_images: +e.target.checked,
+											})
+										}}
+									/>
+								</td>
+								<td className="save">
+									<button
+										className="button category-header-button--save-category"
+										onClick={() =>
+											editCategory(
+												category.id,
+												category.name,
+												!!category.has_images,
+												category.desc
+											)
+										}>
+										<FontAwesomeIcon icon={faCheck} />
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</header>
 			)}
 			<ProductsTable

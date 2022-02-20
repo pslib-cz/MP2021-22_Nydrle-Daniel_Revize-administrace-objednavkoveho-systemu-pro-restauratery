@@ -8,7 +8,7 @@
 			color: $blue-dark;
 			background-color: white;
 			text-decoration: none;
-			border-radius: 1rem;
+			border-radius: 2rem;
 			margin-right: 0.4rem;
 			@include transition-short();
 			&:hover {
@@ -17,66 +17,13 @@
 			}
 		}
 	}
-	&-category {
-		scroll-margin-top: 5rem;
-		&-header {
-			display: flex;
-			align-items: center;
-			padding: 1rem 0;
-			&--is-edited {
-				display: flex;
-				align-items: center;
-				padding: 1rem 0;
-				section {
-					display: flex;
-					flex-direction: column;
-					margin-right: 1rem;
-					span {
-						margin-top: 1rem;
-					}
-				}
-				&--name {
-					input {
-						font-size: 1.6rem;
-					}
-				}
-			}
-			&-heading {
-				display: block;
-				margin: 0 2rem 0 0;
-			}
-			.button {
-				border: 1px solid transparent;
-			}
-			&-button {
-				&--add-item {
-					border-color: $green !important;
-					&:hover {
-						background-color: $green;
-					}
-				}
-				&--edit-category {
-					border-color: $yellow !important;
-					&:hover {
-						background-color: $yellow;
-					}
-				}
-				&--delete-category {
-					border-color: $red !important;
-					&:hover {
-						background-color: $red;
-					}
-				}
-			}
-		}
-	}
 	&-button {
 		&--add-category {
 			border: 1px solid transparent;
-			@extend .page-items-category-header-button--add-item;
 			border-color: $green !important;
-			margin-left: auto;
-			margin-right: auto;
+			&:hover {
+				background-color: $green;
+			}
 		}
 	}
 }

@@ -9,9 +9,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React, { useEffect, useState } from "react"
 import { api } from "../../config/api"
+import IBusinessHour from "../../interfaces/IBusinessHour"
 import Category from "../../interfaces/ICategory"
 import RestaurantData from "../../interfaces/IRestaurant"
 import { useRequireAuth } from "../auth/useRequireAuth"
+import BusinessHour from "../BusinessHour"
 import UseDidUpdateEffect from "../functions/UseDidUpdateEffect"
 import TrueFalseIcon from "../TrueFalseIcon"
 import useToken from "../useToken"
@@ -19,7 +21,7 @@ import useToken from "../useToken"
 const Restaurant = (props: any) => {
 	const [restaurantData, setRestaurantData] = useState<RestaurantData>()
 	const [mixedCategory, setMixedCategory] = useState<Category>()
-	const [hours, setHours] = useState<any[]>([])
+	const [businessHours, setBusinessHours] = useState<IBusinessHour[]>([])
 
 	document.title = "Provozovna"
 	useRequireAuth()
@@ -32,15 +34,39 @@ const Restaurant = (props: any) => {
 			},
 		}).then((response) => {
 			setRestaurantData(response.data.data)
-			let _tempHours: object[] = [] //{open: string, close: string}
-			Object.values(response.data.data.hours).forEach((d: any) => {
-				let _tempDay = Object.entries(d[0]).map(([open, close]) => ({
-					open,
-					close,
-				}))
-				_tempHours.push(_tempDay[0])
+			let _hours: any[] = Object.values(response.data.data.hours)
+			let _days: string[] = Object.keys(response.data.data.hours)
+			let _businessHours: IBusinessHour[] = []
+			_days.forEach((value: string, i: number) => {
+				if (_hours[i][0]) {
+					_businessHours.push({
+						name: value,
+						open: Object.keys(_hours[i][0])[0],
+						close: Object.values(_hours[i][0])[0],
+					})
+				} else {
+					_businessHours.push({
+						name: value,
+						open: null,
+						close: null,
+					})
+				}
 			})
-			setHours(_tempHours)
+			let map = [
+				{ english: "Mon", czech: "Pondělí" },
+				{ english: "Tue", czech: "Úterý" },
+				{ english: "Wed", czech: "Středa" },
+				{ english: "Thu", czech: "Čtvrtek" },
+				{ english: "Fri", czech: "Pátek" },
+				{ english: "Sat", czech: "Sobota" },
+				{ english: "Sun", czech: "Neděle" },
+			]
+			_businessHours.forEach((value: IBusinessHour, i: number) => {
+				value.name = map.filter(
+					(x) => x.english === value.name
+				)[0].czech
+			})
+			setBusinessHours(_businessHours)
 		})
 	}, [props])
 
@@ -154,11 +180,13 @@ const Restaurant = (props: any) => {
 								</tr>
 								<tr>
 									<td>Poznámka - hlavička stránky</td>
-									<td>{restaurantData?.dlv_text}</td>
+									<td>{restaurantData?.options.memo_head}</td>
 								</tr>
 								<tr>
 									<td>Poznámka - potvrzení objednávky</td>
-									<td>{restaurantData?.options.memo_2_left}</td>
+									<td>
+										{restaurantData?.options.memo_2_left}
+									</td>
 								</tr>
 								<tr>
 									<td>Facebook</td>
@@ -217,62 +245,9 @@ const Restaurant = (props: any) => {
 								</tr>
 							</thead>
 							<tbody className="table-body">
-								<tr>
-									<td>Pondělí</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[0]?.open}</td>
-									<td>{hours[0]?.close}</td>
-								</tr>
-								<tr>
-									<td>Úterý</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[1]?.open}</td>
-									<td>{hours[1]?.close}</td>
-								</tr>
-								<tr>
-									<td>Středa</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[2]?.open}</td>
-									<td>{hours[2]?.close}</td>
-								</tr>
-								<tr>
-									<td>Čtvrtek</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[3]?.open}</td>
-									<td>{hours[3]?.close}</td>
-								</tr>
-								<tr>
-									<td>Pátek</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[4]?.open}</td>
-									<td>{hours[4]?.close}</td>
-								</tr>
-								<tr>
-									<td>Sobota</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[5]?.open}</td>
-									<td>{hours[5]?.close}</td>
-								</tr>
-								<tr>
-									<td>Neděle</td>
-									<td>
-										<FontAwesomeIcon icon={faCheck} />
-									</td>
-									<td>{hours[6]?.open}</td>
-									<td>{hours[6]?.close}</td>
-								</tr>
+								{businessHours.map((b: IBusinessHour) => {
+									return <BusinessHour {...b} />
+								})}
 							</tbody>
 						</table>
 					</div>

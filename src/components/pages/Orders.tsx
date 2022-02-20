@@ -14,7 +14,7 @@ import {
 const Orders = () => {
 	document.title = "Objednávky"
 	const [orders, setOrders] = useState<Order[]>([])
-	const [pageCounter, setPageCounter] = useState(1)
+	const [pageCounter, setPageCounter] = useState<number>(1)
 	const { token } = useToken()
 	useRequireAuth()
 
@@ -24,7 +24,8 @@ const Orders = () => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			setOrders(Object.values(response.data.data))
+			let _orders: Order[] = Object.values(response.data.data)
+			setOrders(_orders)
 		})
 	}, [])
 
@@ -42,18 +43,19 @@ const Orders = () => {
 
 	return (
 		<div className="page page-orders">
-			<OrdersTable orders={orders} />
 			<div className="page-orders-buttons">
-				<button
-					className="button page-orders-buttons-button page-orders-buttons-button-previous"
-					onClick={() => {
-						let temp = pageCounter
-						++temp
-						setPageCounter(temp)
-					}}>
-					<FontAwesomeIcon icon={faChevronLeft} />
-					starší
-				</button>
+				{!orders.find(o => o.seq === 1) && (
+					<button
+						className="button page-orders-buttons-button page-orders-buttons-button-previous"
+						onClick={() => {
+							let temp = pageCounter
+							++temp
+							setPageCounter(temp)
+						}}>
+						<FontAwesomeIcon icon={faChevronLeft} />
+						starší
+					</button>
+				)}
 				{pageCounter > 1 && (
 					<button
 						className="button page-orders-buttons-button page-orders-buttons-button-next"
@@ -67,6 +69,7 @@ const Orders = () => {
 					</button>
 				)}
 			</div>
+			<OrdersTable orders={orders} />
 		</div>
 	)
 }

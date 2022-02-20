@@ -46,66 +46,6 @@
 					border-top: none;
 				}
 			}
-			&:last-child {
-				background-color: $gray;
-				td {
-					position: relative;
-					background-color: white;
-					@include transition-short();
-				}
-			}
-		}
-	}
-
-	.itemstable {
-		&-body {
-			td {
-				.fa-grip-vertical {
-					color: $gray-darker;
-				}
-			}
-			&-button {
-				height: 1.6rem !important;
-				width: 1.6rem !important;
-				padding: 0;
-				border-radius: 1.6rem;
-				border: 1px solid #000;
-				background-color: transparent;
-				@include transition-short();
-				&:last-of-type {
-					margin-right: 0;
-				}
-				&--edit-product {
-					border-color: $orange;
-				}
-				&--delete-product {
-					border-color: $red;
-					color: $red;
-					&:hover {
-						background-color: $red;
-					}
-				}
-				&--save-product {
-					background-color: white;
-					border: 1px solid $green;
-					width: auto !important;
-					height: auto !important;
-					padding: 0.4rem 0.6rem;
-					&:hover {
-						background-color: $green;
-					}
-					svg {
-						margin-left: 0.4rem;
-					}
-				}
-				&:hover {
-					cursor: pointer;
-					color: white;
-				}
-				svg {
-					margin-right: 0;
-				}
-			}
 		}
 	}
 

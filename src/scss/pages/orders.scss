@@ -1,7 +1,13 @@
 .page-orders {
+	.table {
+		&-container {
+			margin-bottom: 0;
+		}
+	}
 	&-buttons {
 		display: flex;
 		justify-content: center;
+		margin-bottom: 2rem;
 		&-button {
 			&-next {
 				svg {

@@ -1,7 +1,8 @@
 .button {
-	display: inline-block;
+	display: block;
+	font-family: "Poppins", sans-serif;
 	padding: 0.4rem 1rem;
-	color: #34495e;
+	color: $blue-dark;
 	background-color: white;
 	text-decoration: none;
 	border-right: 1rem;

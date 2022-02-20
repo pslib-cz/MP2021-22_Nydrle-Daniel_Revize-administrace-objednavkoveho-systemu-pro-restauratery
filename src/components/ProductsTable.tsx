@@ -34,25 +34,25 @@ const ProductsTable = (props: {
 	}, [filteredProducts])
 
 	return (
-		<div className="table-container itemstable-container">
-			<table className="table itemstable">
-				<thead className="table-header itemstable-header">
+		<div className="table-container productstable-container">
+			<table className="table productstable">
+				<thead className="table-header productstable-header">
 					<tr>
-						<th></th>
-						<th>Kód</th>
-						<th>Foto</th>
-						<th>Název</th>
-						<th>Cena</th>
-						<th>Obal</th>
-						<th>Ks/Kg/l</th>
-						<th>Alergeny</th>
-						<th>Aktivní</th>
-						<th>Rozvoz</th>
-						<th>18+</th>
-						<th>Interakce</th>
+						<th className="grip"></th>
+						<th className="code">Kód</th>
+						<th className="img">Foto</th>
+						<th className="name">Název</th>
+						<th className="px">Cena</th>
+						<th className="pkpx">Obal</th>
+						<th className="amount">Ks/Kg/l</th>
+						<th className="alergeny">Alergeny</th>
+						<th className="active">Aktivní</th>
+						<th className="is_supplement">Rozvoz</th>
+						<th className="is_restricted">18+</th>
+						<th className="buttons">Interakce</th>
 					</tr>
 				</thead>
-				<tbody className="table-body itemstable-body">
+				<tbody className="table-body productstable-body">
 					{products.map((product: IProduct) => {
 						return (
 							<Product
