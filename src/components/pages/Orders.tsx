@@ -24,7 +24,7 @@ const Orders = () => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			let _orders: Order[] = Object.values(response.data.data)
+			let _orders: Order[] = Object.values(response.data.data.orders)
 			setOrders(_orders)
 		})
 	}, [])
@@ -36,7 +36,7 @@ const Orders = () => {
 			},
 		}).then((response) => {
 			let newOrders: Order[] = []
-			newOrders = Object.values(response.data.data)
+			newOrders = Object.values(response.data.data.orders)
 			setOrders(newOrders)
 		})
 	}, [pageCounter])

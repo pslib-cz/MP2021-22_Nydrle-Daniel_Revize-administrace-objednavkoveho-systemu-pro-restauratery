@@ -23,9 +23,10 @@ const Home = () => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			let _orders: Order[] = Object.values(response.data.data)
+			let _orders: Order[] = Object.values(response.data.data.orders)
+			console.log(response.data.data.orders)
 			setOrders(_orders)
-			setNumberOfOrders(_orders[_orders.length - 1].seq)
+			setNumberOfOrders(response.data.data.total)
 		})
 
 		api.get("/order/stats", {

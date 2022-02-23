@@ -63,14 +63,9 @@ const OrdersTable = (props: Props) => {
 									<td>
 										{order.items.map(
 											(item: IDeliveryItem) => {
-												{
-													return (
-														<div key={item.id}>
-															{item.qty}&times;{" "}
-															{item.name}
-														</div>
-													)
-												}
+												return (
+													<div key={item.code}>{item.qty}&times; {item.name}</div>
+												)
 											}
 										)}
 									</td>
