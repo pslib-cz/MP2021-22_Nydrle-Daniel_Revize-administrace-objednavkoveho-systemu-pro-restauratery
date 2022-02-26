@@ -8,9 +8,11 @@ import IProduct from "../../interfaces/IProduct"
 import useToken from "../useToken"
 import ProductsTable from "../ProductsTable"
 import Category from "../Category"
+import Loader from "../Loader"
 
 const Items = () => {
 	document.title = "Sortiment"
+	const [isLoading, setIsLoading] = useState(true)
 	const [categories, setCategories] = useState<ICategory[]>([])
 	const [products, setProducts] = useState(Array<any>())
 	const { token } = useToken()
@@ -19,6 +21,7 @@ const Items = () => {
 	useEffect(() => {
 		getCategories()
 		getProducts()
+		setIsLoading(false)
 	}, [])
 
 	let getCategories = () => {
@@ -72,39 +75,41 @@ const Items = () => {
 
 	return (
 		<div className="page page-items">
-			<div className="page-items-links">
-				{categories.map((category: ICategory) => {
-					{
-						return (
-							<a
-								className="button page-items-links-link"
-								href={`#${category.name}`}>
-								{category.name}
-							</a>
-						)
-					}
-				})}
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<div className="page-items-links">
+						{categories.map((category: ICategory) => {
+							return (
+								<a
+									className="button page-items-links-link"
+									href={`#${category.name}`}>
+									{category.name}
+								</a>
+							)
+						})}
 
-				<button
-					className="button page-items-button--add-category"
-					onClick={() => addCategory()}>
-					<FontAwesomeIcon icon={faPlus} />
-					Přidat kategorii
-				</button>
-			</div>
-			{categories.map((category: ICategory) => {
-				{
-					return (
-						<Category
-							propCategory={category}
-							propProducts={getFilteredProducts(category.id)}
-							callbackDeleteCategory={(id: number): void =>
-								deleteCategory(id)
-							}
-						/>
-					)
-				}
-			})}
+						<button
+							className="button page-items-button--add-category"
+							onClick={() => addCategory()}>
+							<FontAwesomeIcon icon={faPlus} />
+							Přidat kategorii
+						</button>
+					</div>
+					{categories.map((category: ICategory) => {
+						return (
+							<Category
+								propCategory={category}
+								propProducts={getFilteredProducts(category.id)}
+								callbackDeleteCategory={(id: number): void =>
+									deleteCategory(id)
+								}
+							/>
+						)
+					})}
+				</>
+			)}
 		</div>
 	)
 }

@@ -7,9 +7,11 @@ import useToken from "../useToken"
 import { api } from "../../config/api"
 import Order from "../../interfaces/IOrder"
 import ChartData from "../../interfaces/IChartData"
+import Loader from "../Loader"
 
 const Home = () => {
 	document.title = ""
+	const [isLoading, setIsLoading] = useState(true)
 	const [orders, setOrders] = useState<Order[]>([])
 	const [chartData, setChartData] = useState<ChartData[]>([])
 	const [kpiData, setKpiData] = useState<ChartData[]>([])
@@ -17,7 +19,7 @@ const Home = () => {
 	const { token } = useToken()
 	useRequireAuth()
 
-	useEffect(() => {
+	const getOrders = () => {
 		api.get("/order/all?count=5", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -28,7 +30,9 @@ const Home = () => {
 			setOrders(_orders)
 			setNumberOfOrders(response.data.data.total)
 		})
+	}
 
+	const getStats = () => {
 		api.get("/order/stats", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -38,13 +42,25 @@ const Home = () => {
 			setChartData(_chartData)
 			setKpiData(_chartData.slice(Math.max(_chartData.length - 2, 0)))
 		})
+	}
+
+	useEffect(() => {
+		getOrders()
+		getStats()
+		setIsLoading(false)
 	}, [])
 
 	return (
 		<div className="page page-home">
-			<OrdersTable orders={orders} />
-			<Kpis kpiData={kpiData} numberOfOrders={numberOfOrders} />
-			<OrderCharts chartData={chartData} />
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<OrdersTable orders={orders} />
+					<Kpis kpiData={kpiData} numberOfOrders={numberOfOrders} />
+					<OrderCharts chartData={chartData} />
+				</>
+			)}
 		</div>
 	)
 }

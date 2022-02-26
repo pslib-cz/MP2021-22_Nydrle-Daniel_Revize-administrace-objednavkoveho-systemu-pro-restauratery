@@ -5,6 +5,7 @@
 	@include center();
 	border-collapse: separate;
 	@include shadow();
+	overflow: auto;
 	&-container {
 		border-radius: 1.6rem;
 		overflow: hidden;
@@ -17,7 +18,7 @@
 			min-height: 0.4rem;
 			th {
 				text-align: left;
-				padding: 0.3rem 1rem 0.5rem;
+				padding: 0.3rem 0.6rem 0.5rem;
 				svg {
 					margin-right: 0.4rem;
 				}
@@ -66,13 +67,11 @@
 
 @media screen and (max-width: 1400px) {
 	.ordertable {
-		&-header {
-			tr {
-				th {
-					svg {
-						display: block;
-						margin: 0 auto 0.4rem;
-					}
+		tr {
+			th {
+				svg {
+					display: none;
+					margin: 0 auto 0.4rem;
 				}
 			}
 		}
@@ -88,7 +87,14 @@
 		white-space: nowrap;
 		width: 100%;
 	}
-	.itemstable {
-		overflow-x: auto !important;
+	.productstable {
+		width: 100%;
+		overflow-x: auto;
+		&-container {
+			width: max-content;
+			max-width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	}
 }

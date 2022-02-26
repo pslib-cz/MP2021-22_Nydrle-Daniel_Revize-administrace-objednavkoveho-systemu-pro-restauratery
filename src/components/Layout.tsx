@@ -1,19 +1,11 @@
-import { icon } from "@fortawesome/fontawesome-svg-core"
-import { faPowerOff, faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React, {
-	PropsWithChildren,
-	ReactChild,
-	ReactElement,
-	ReactNode,
-} from "react"
+import { useState } from "react"
 import { Link, Outlet, useNavigate } from "react-router-dom"
-import { useRequireAuth } from "./auth/useRequireAuth"
-import useToken from "./useToken"
 
 const Layout = ({ children, clearToken, ...rest }: any) => {
 	const navigate = useNavigate()
-	const { token, setToken } = useToken()
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
 	const logout = () => {
 		clearToken()
@@ -51,10 +43,60 @@ const Layout = ({ children, clearToken, ...rest }: any) => {
 						Oblasti rozvozu
 					</Link>
 					<button
-						onClick={() => logout()}
+						onClick={() => {
+							if (window.confirm("Opravdu se chcete odhlásit?"))
+								logout()
+						}}
 						className="menu-nav-logout-button">
 						<FontAwesomeIcon icon={faPowerOff} />
 					</button>
+				</nav>
+				<nav className="menu-nav--mobile container">
+					<h1 className="menu-nav-name">Restaurace Na Zkušební</h1>
+					<button
+						className="button menu-nav--mobile-openburger"
+						onClick={() => setIsSidebarOpen(true)}>
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<nav
+						className={`menu-nav--mobile-sidebar ${
+							isSidebarOpen ? "is-open" : "is-closed"
+						}`}>
+						<button
+							className="button menu-nav--mobile-closeburger"
+							onClick={() => setIsSidebarOpen(false)}>
+							&times;
+						</button>
+						<Link to="/" className="menu-nav-link">
+							Domů
+						</Link>
+						<Link to="/items" className="menu-nav-link">
+							Sortiment
+						</Link>
+						<Link to="/orders" className="menu-nav-link">
+							Objednávky
+						</Link>
+						<Link to="/restaurant" className="menu-nav-link">
+							Provozovna
+						</Link>
+						<Link to="/areas" className="menu-nav-link">
+							Oblasti rozvozu
+						</Link>
+						<button
+							onClick={() => {
+								if (
+									window.confirm(
+										"Opravdu se chcete odhlásit?"
+									)
+								)
+									logout()
+							}}
+							className="menu-nav-logout-button">
+							<FontAwesomeIcon icon={faPowerOff} />
+						</button>
+					</nav>
 				</nav>
 			</div>
 			<div className="container">

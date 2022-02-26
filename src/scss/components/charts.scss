@@ -11,6 +11,7 @@
 		width: 100%;
 		margin: 0px 1rem;
 		height: auto !important;
+		box-sizing: border-box;
 		@include shadow();
 		&:first-of-type {
 			margin-left: 0;
@@ -30,7 +31,8 @@
 		flex-direction: column;
 		align-items: center;
 		&-chartcontainer {
-			width: 70%;
+			width: 100%;
+			margin: 0;
 			&:first-of-type {
 				margin-bottom: 1rem;
 			}
