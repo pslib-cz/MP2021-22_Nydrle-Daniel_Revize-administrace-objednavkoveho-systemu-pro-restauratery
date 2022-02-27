@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import useToken from "../useToken"
+import { useToken } from "../useToken"
 
 export const useRequireAuth = (redirectTo: string = "/") => {
 	const { token } = useToken()

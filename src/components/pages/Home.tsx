@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
-import Kpis from "../Kpis"
-import OrdersTable from "../OrdersTable"
-import OrderCharts from "../OrderCharts"
+import { Kpis } from "../Kpis"
+import { OrdersTable } from "../OrdersTable"
+import { OrderCharts } from "../OrderCharts"
 import { useRequireAuth } from "../auth/useRequireAuth"
-import useToken from "../useToken"
+import { useToken } from "../useToken"
 import { api } from "../../config/api"
 import Order from "../../interfaces/IOrder"
 import ChartData from "../../interfaces/IChartData"
-import Loader from "../Loader"
+import { Loader } from "../Loader"
 
-const Home = () => {
+export const Home = () => {
 	document.title = ""
 	const [isLoading, setIsLoading] = useState(true)
 	const [orders, setOrders] = useState<Order[]>([])
@@ -48,6 +48,7 @@ const Home = () => {
 		getOrders()
 		getStats()
 		setIsLoading(false)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
@@ -64,5 +65,3 @@ const Home = () => {
 		</div>
 	)
 }
-
-export default Home

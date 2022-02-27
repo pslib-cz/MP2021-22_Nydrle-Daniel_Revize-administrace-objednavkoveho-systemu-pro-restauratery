@@ -1,6 +1,6 @@
 .page-restaurant {
 	display: flex;
-	flex-direction: row !important;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-start;
 	& > .left {
@@ -27,15 +27,39 @@
 		table {
 			width: 100%;
 		}
-		&-general {
-		}
-		&-hours {
-		}
 	}
 	input {
 		border: none;
 		border-bottom: 1px solid $gray;
 		text-align: center;
 		width: max-content;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.page-restaurant {
+		flex-direction: column;
+		&-section {
+			&-header {
+				&-heading {
+					text-align: center;
+				}
+			}
+		}
+		& > * {
+			width: 100% !important;
+			padding: 0 !important;
+			.table {
+				width: 100%;
+				overflow-x: auto;
+				&-container {
+					width: max-content;
+					max-width: 100%;
+					overflow-x: hidden;
+					margin-left: auto;
+					margin-right: auto;
+				}
+			}
+		}
 	}
 }

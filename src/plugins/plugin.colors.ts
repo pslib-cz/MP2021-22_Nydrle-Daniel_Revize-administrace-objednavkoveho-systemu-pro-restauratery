@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"
-import type { ChartData, ChartArea } from "chart.js"
+import type { ChartArea } from "chart.js"
 
 export const YELLOW = "#f1bf15"
 export const PINK = "#f8507d"

@@ -1,32 +1,41 @@
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, Outlet, useNavigate } from "react-router-dom"
+import { api } from "../config/api"
+import IRestaurant from "../interfaces/IRestaurant"
+import { useToken } from "./useToken"
 
-const Layout = ({ children, clearToken, ...rest }: any) => {
+export const Layout = ({ children, clearToken, ...rest }: any) => {
 	const navigate = useNavigate()
+	const { token } = useToken()
+	const [restaurantData, setRestaurantData] = useState<IRestaurant>()
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+	const getRestaurantData = () => {
+		api.get("/property", {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}).then((response) => {
+			setRestaurantData(response.data.data)
+		})
+	}
 
 	const logout = () => {
 		clearToken()
 		navigate("/")
 	}
+
+	useEffect(() => {
+		getRestaurantData()
+	})
+
 	return (
 		<main className="layout">
 			<div className="menu">
-				{/* <header className="menu-header">
-                    <h1 className="menu-header-name">Restaurace Na Zkušební</h1>
-                    <button onClick={() => logout()} className="menu-header-logout-button"><FontAwesomeIcon icon={faPowerOff}/></button>
-                </header>
-                <nav className="menu-items">
-                    <Link to="/" className='menu-items-item'>Domů</Link>
-                    <Link to="/items" className='menu-items-item'>Sortiment</Link>
-                    <Link to="/orders" className='menu-items-item'>Objednávky</Link>
-                    <Link to="/restaurant" className='menu-items-item'>Provozovna</Link>
-                    <Link to="/areas" className='menu-items-item'>Oblasti rozvozu</Link>
-                </nav> */}
 				<nav className="menu-nav container">
-					<h1 className="menu-nav-name">Restaurace Na Zkušební</h1>
+					<h1 className="menu-nav-name">{restaurantData?.name}</h1>
 					<Link to="/" className="menu-nav-link">
 						Domů
 					</Link>
@@ -39,9 +48,9 @@ const Layout = ({ children, clearToken, ...rest }: any) => {
 					<Link to="/restaurant" className="menu-nav-link">
 						Provozovna
 					</Link>
-					<Link to="/areas" className="menu-nav-link">
+					{/* <Link to="/areas" className="menu-nav-link">
 						Oblasti rozvozu
-					</Link>
+					</Link> */}
 					<button
 						onClick={() => {
 							if (window.confirm("Opravdu se chcete odhlásit?"))
@@ -52,7 +61,7 @@ const Layout = ({ children, clearToken, ...rest }: any) => {
 					</button>
 				</nav>
 				<nav className="menu-nav--mobile container">
-					<h1 className="menu-nav-name">Restaurace Na Zkušební</h1>
+					<h1 className="menu-nav-name">{restaurantData?.name}</h1>
 					<button
 						className="button menu-nav--mobile-openburger"
 						onClick={() => setIsSidebarOpen(true)}>
@@ -69,21 +78,33 @@ const Layout = ({ children, clearToken, ...rest }: any) => {
 							onClick={() => setIsSidebarOpen(false)}>
 							&times;
 						</button>
-						<Link to="/" className="menu-nav-link">
+						<Link
+							to="/"
+							className="menu-nav-link"
+							onClick={() => setIsSidebarOpen(false)}>
 							Domů
 						</Link>
-						<Link to="/items" className="menu-nav-link">
+						<Link
+							to="/items"
+							className="menu-nav-link"
+							onClick={() => setIsSidebarOpen(false)}>
 							Sortiment
 						</Link>
-						<Link to="/orders" className="menu-nav-link">
+						<Link
+							to="/orders"
+							className="menu-nav-link"
+							onClick={() => setIsSidebarOpen(false)}>
 							Objednávky
 						</Link>
-						<Link to="/restaurant" className="menu-nav-link">
+						<Link
+							to="/restaurant"
+							className="menu-nav-link"
+							onClick={() => setIsSidebarOpen(false)}>
 							Provozovna
 						</Link>
-						<Link to="/areas" className="menu-nav-link">
+						{/* <Link to="/areas" className="menu-nav-link" onClick={() => setIsSidebarOpen(false)}>
 							Oblasti rozvozu
-						</Link>
+						</Link> */}
 						<button
 							onClick={() => {
 								if (
@@ -106,5 +127,3 @@ const Layout = ({ children, clearToken, ...rest }: any) => {
 		</main>
 	)
 }
-
-export default Layout

@@ -1,17 +1,17 @@
-import React, { useEffect, useLayoutEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { api } from "../../config/api"
 import { useRequireAuth } from "../auth/useRequireAuth"
 import Order from "../../interfaces/IOrder"
-import OrdersTable from "../OrdersTable"
-import useToken from "../useToken"
-import UseDidUpdateEffect from "../functions/UseDidUpdateEffect"
+import { OrdersTable } from "../OrdersTable"
+import { useToken } from "../useToken"
+import { useDidUpdateEffect } from "../functions/useDidUpdateEffect"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
 	faChevronLeft,
 	faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
 
-const Orders = () => {
+export const Orders = () => {
 	document.title = "Objednávky"
 	const [orders, setOrders] = useState<Order[]>([])
 	const [pageCounter, setPageCounter] = useState<number>(1)
@@ -27,9 +27,9 @@ const Orders = () => {
 			let _orders: Order[] = Object.values(response.data.data.orders)
 			setOrders(_orders)
 		})
-	}, [])
+	}, [token])
 
-	UseDidUpdateEffect(() => {
+	useDidUpdateEffect(() => {
 		api.get(`/order/all?count=10&page=${pageCounter}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const Orders = () => {
 	return (
 		<div className="page page-orders">
 			<div className="page-orders-buttons">
-				{!orders.find(o => o.seq === 1) && (
+				{!orders.find((o) => o.seq === 1) && (
 					<button
 						className="button page-orders-buttons-button page-orders-buttons-button-previous"
 						onClick={() => {
@@ -73,5 +73,3 @@ const Orders = () => {
 		</div>
 	)
 }
-
-export default Orders

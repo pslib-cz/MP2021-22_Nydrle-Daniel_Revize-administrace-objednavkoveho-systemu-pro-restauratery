@@ -16,7 +16,7 @@ interface Props {
 	orders: IOrder[]
 }
 
-const OrdersTable = (props: Props) => {
+export const OrdersTable = (props: Props) => {
 	useEffect(() => {
 		setOrders(Object.values(props.orders))
 	}, [props])
@@ -53,32 +53,28 @@ const OrdersTable = (props: Props) => {
 				</thead>
 				<tbody className="table-body ordertable-body">
 					{orders.map((order: IOrder) => {
-						{
-							return (
-								<tr key={order.seq}>
-									<td>#{order.seq}</td>
-									<td>{order.date}</td>
-									<td>{order.px}&nbsp;Kč</td>
-									<td>{order.phone}</td>
-									<td>
-										{order.items.map(
-											(item: IDeliveryItem) => {
-												return (
-													<div key={item.code}>{item.qty}&times; {item.name}</div>
-												)
-											}
-										)}
-									</td>
-									<td>{order.name}</td>
-									<td>{order.address}</td>
-								</tr>
-							)
-						}
+						return (
+							<tr key={order.seq}>
+								<td>#{order.seq}</td>
+								<td>{order.date}</td>
+								<td>{order.px}&nbsp;Kč</td>
+								<td>{order.phone}</td>
+								<td>
+									{order.items.map((item: IDeliveryItem) => {
+										return (
+											<div key={item.code}>
+												{item.qty}&times; {item.name}
+											</div>
+										)
+									})}
+								</td>
+								<td>{order.name}</td>
+								<td>{order.address}</td>
+							</tr>
+						)
 					})}
 				</tbody>
 			</table>
 		</div>
 	)
 }
-
-export default OrdersTable

@@ -98,3 +98,11 @@
 		}
 	}
 }
+
+@media screen and (max-width: 576px) {
+	.table {
+		&-container {
+			margin-bottom: 2rem;
+		}
+	}
+}

@@ -1,28 +1,13 @@
-import {
-	faCheck,
-	faEdit,
-	faGripVertical,
-	faMinus,
-	faTimes,
-	faTrash,
-	faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
-import { api } from "../config/api"
 import IProduct from "../interfaces/IProduct"
-import Product from "./Product"
-import TrueFalseIcon from "./TrueFalseIcon"
-import useToken from "./useToken"
-import ValueNullIcon from "./ValueNullIcon"
+import { Product } from "./Product"
 
-const ProductsTable = (props: {
+export const ProductsTable = (props: {
 	filteredProducts: IProduct[]
 	callbackSetFilteredProducts: (products: IProduct[]) => void
 }) => {
 	const { filteredProducts, callbackSetFilteredProducts } = props
 	const [products, setProducts] = useState<IProduct[]>([])
-	const { token } = useToken()
 
 	const deleteProduct = (id: number): void => {
 		setProducts(products.filter((p) => p.id !== id))
@@ -69,5 +54,3 @@ const ProductsTable = (props: {
 		</div>
 	)
 }
-
-export default ProductsTable

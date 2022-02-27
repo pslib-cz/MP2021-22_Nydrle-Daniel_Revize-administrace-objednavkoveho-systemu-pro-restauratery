@@ -1,10 +1,4 @@
-import {
-	faArrowDown,
-	faArrowUp,
-	faMinus,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import IChartData from "../interfaces/IChartData"
 import { Kpi } from "./Kpi"
 
@@ -23,21 +17,10 @@ interface Income {
 	yesterday: number
 }
 
-interface Icons {
-	orders: string
-	incomes: string
-}
-
-const Kpis = (props: Props) => {
+export const Kpis = (props: Props) => {
 	const [orders, setOrders] = useState<Order>({ yesterday: 0, today: 0 })
 	const [incomes, setIncomes] = useState<Income>({ yesterday: 0, today: 0 })
-	const [orderDifference, setOrderDifference] = useState(0)
-	const [incomeDifference, setIncomeDifference] = useState(0)
 	const [numberOfOrders, setNumberOfOrders] = useState(0)
-	const [icons, setIcons] = useState<Icons>({
-		orders: "Minus",
-		incomes: "Minus",
-	})
 
 	useEffect(() => {
 		setOrders({
@@ -49,17 +32,7 @@ const Kpis = (props: Props) => {
 			yesterday: +props.kpiData[0]?.revenue,
 		})
 
-		setOrderDifference(orders.today - orders.yesterday)
-		setIncomeDifference(incomes.today - incomes.yesterday)
-
 		setNumberOfOrders(props.numberOfOrders)
-
-		let orderIcon: string, incomeIcon: string
-		if (orderDifference > 0) orderIcon = "ArrowUp"
-		else if (orderDifference < 0) orderIcon = "ArrowDown"
-		if (incomeDifference > 0) incomeIcon = "ArrowUp"
-		else if (incomeDifference < 0) incomeIcon = "ArrowDown"
-		setIcons({ orders: orderIcon!, incomes: incomeIcon! })
 	}, [props])
 
 	return (
@@ -88,5 +61,3 @@ const Kpis = (props: Props) => {
 		</div>
 	)
 }
-
-export default Kpis

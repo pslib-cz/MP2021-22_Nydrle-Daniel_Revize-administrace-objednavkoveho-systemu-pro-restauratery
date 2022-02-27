@@ -1,9 +1,8 @@
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React from "react"
 import IBusinessHour from "../interfaces/IBusinessHour"
 
-const BusinessHour = (businessHour: IBusinessHour) => {
+export const BusinessHour = (businessHour: IBusinessHour) => {
 	return (
 		<tr>
 			<td className="day">{businessHour.name}</td>
@@ -19,5 +18,3 @@ const BusinessHour = (businessHour: IBusinessHour) => {
 		</tr>
 	)
 }
-
-export default BusinessHour

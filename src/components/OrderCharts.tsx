@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IChartData from "../interfaces/IChartData"
 
 import { Chart } from "react-chartjs-2"
@@ -33,8 +33,7 @@ interface Props {
 	chartData: IChartData[]
 }
 
-const OrderCharts = (props: Props) => {
-	const [chartData, setChartData] = useState<IChartData[]>([])
+export const OrderCharts = (props: Props) => {
 	const [revenueData, setRevenueData] = useState<IChartJsData>({
 		labels: [],
 		datasets: [],
@@ -227,5 +226,3 @@ const OrderCharts = (props: Props) => {
 		</div>
 	)
 }
-
-export default OrderCharts

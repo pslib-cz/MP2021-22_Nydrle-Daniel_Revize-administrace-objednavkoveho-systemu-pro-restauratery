@@ -5,30 +5,27 @@ import {
 	faTrash,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import IProduct from "../interfaces/IProduct"
-import TrueFalseIcon from "./TrueFalseIcon"
-import ValueNullIcon from "./ValueNullIcon"
+import { TrueFalseIcon } from "./TrueFalseIcon"
+import { ValueNullIcon } from "./ValueNullIcon"
 import { api } from "../config/api"
-import useToken from "./useToken"
+import { useToken } from "./useToken"
 import { useRequireAuth } from "./auth/useRequireAuth"
 
-const Product = (props: {
+export const Product = (props: {
 	propProduct: IProduct
 	callbackDeleteProduct: (id: number) => void
 }) => {
 	const { propProduct, callbackDeleteProduct } = props
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [isEdited, setIsEdited] = useState<boolean>(false)
 	const [product, setProduct] = useState<IProduct>({ ...propProduct })
 	const { token } = useToken()
 	useRequireAuth()
 
 	useEffect(() => {
-		setIsLoading(true)
 		setProduct({ ...propProduct })
-		setIsLoading(false)
-	}, [])
+	}, [propProduct])
 
 	const deleteProduct = (id: number) => {
 		api.delete(`/product/${id}`, {
@@ -52,7 +49,6 @@ const Product = (props: {
 		is_supplement: boolean,
 		is_restricted: boolean
 	) => {
-		setIsLoading(true)
 		if (amount === "") amount = null
 		if (alergeny === "") alergeny = null
 		api.post(
@@ -76,12 +72,11 @@ const Product = (props: {
 		).then((response) => {
 			setIsEdited(false)
 		})
-		setIsLoading(false)
 	}
 
 	return (
 		<>
-			 	{!isEdited && (
+			{!isEdited && (
 				<tr className="product">
 					<td className="grip">
 						<FontAwesomeIcon icon={faGripVertical} />
@@ -89,7 +84,9 @@ const Product = (props: {
 					<td className="code">{product.code}</td>
 					<td className="img">
 						{product.img_thumb !== "" ? (
-							<img src={product.img_thumb}></img>
+							<img
+								src={product.img_thumb}
+								alt={product.name}></img>
 						) : (
 							<FontAwesomeIcon icon={faMinus} />
 						)}
@@ -151,7 +148,9 @@ const Product = (props: {
 					</td>
 					<td className="img">
 						{product.img_thumb !== "" ? (
-							<img src={product.img_thumb}></img>
+							<img
+								src={product.img_thumb}
+								alt={product.name}></img>
 						) : (
 							<FontAwesomeIcon icon={faMinus} />
 						)}
@@ -275,5 +274,3 @@ const Product = (props: {
 		</>
 	)
 }
-
-export default Product

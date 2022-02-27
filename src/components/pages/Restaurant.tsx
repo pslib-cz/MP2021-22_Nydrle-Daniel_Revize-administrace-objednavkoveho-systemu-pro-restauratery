@@ -1,10 +1,8 @@
 import {
 	faCalendarDay,
-	faCheck,
 	faDoorOpen,
 	faHourglassEnd,
 	faHourglassStart,
-	faTimes,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React, { useEffect, useState } from "react"
@@ -13,12 +11,12 @@ import IBusinessHour from "../../interfaces/IBusinessHour"
 import Category from "../../interfaces/ICategory"
 import RestaurantData from "../../interfaces/IRestaurant"
 import { useRequireAuth } from "../auth/useRequireAuth"
-import BusinessHour from "../BusinessHour"
-import UseDidUpdateEffect from "../functions/UseDidUpdateEffect"
-import TrueFalseIcon from "../TrueFalseIcon"
-import useToken from "../useToken"
+import { BusinessHour } from "../BusinessHour"
+import { useDidUpdateEffect } from "../functions/useDidUpdateEffect"
+import { TrueFalseIcon } from "../TrueFalseIcon"
+import { useToken } from "../useToken"
 
-const Restaurant = (props: any) => {
+export const Restaurant = (props: any) => {
 	const [restaurantData, setRestaurantData] = useState<RestaurantData>()
 	const [mixedCategory, setMixedCategory] = useState<Category>()
 	const [businessHours, setBusinessHours] = useState<IBusinessHour[]>([])
@@ -68,9 +66,9 @@ const Restaurant = (props: any) => {
 			})
 			setBusinessHours(_businessHours)
 		})
-	}, [props])
+	}, [props, token])
 
-	UseDidUpdateEffect(() => {
+	useDidUpdateEffect(() => {
 		api.get("/category/all", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -80,6 +78,7 @@ const Restaurant = (props: any) => {
 
 			let _mixedCategory = _categories.filter((c: Category) => {
 				if (c.id === restaurantData?.mix_item_cat) return c
+				return null
 			})[0]
 
 			setMixedCategory(_mixedCategory)
@@ -294,5 +293,3 @@ const Restaurant = (props: any) => {
 		</div>
 	)
 }
-
-export default Restaurant

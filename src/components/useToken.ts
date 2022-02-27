@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const useToken = () => {
+export const useToken = () => {
 	const getToken = () => {
 		const token = localStorage.getItem("mealgoAccessToken")
 		return token
@@ -28,5 +28,3 @@ const useToken = () => {
 		clearToken: clearToken,
 	}
 }
-
-export default useToken

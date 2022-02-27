@@ -93,3 +93,20 @@
 		}
 	}
 }
+
+@media screen and (max-width: 768px) {
+	.category {
+		&-header {
+			flex-direction: column;
+			align-items: flex-start;
+			&-heading {
+				margin: 0;
+				margin-bottom: 0.4rem;
+			}
+			.button {
+				margin: 0;
+				margin-bottom: 0.4rem;
+			}
+		}
+	}
+}

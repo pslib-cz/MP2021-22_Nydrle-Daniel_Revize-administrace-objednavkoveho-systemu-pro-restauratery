@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-let UseDidUpdateEffect = (fn: any, inputs: any) => {
+export const useDidUpdateEffect = (fn: any, inputs: any) => {
 	const didMountRef = useRef(false)
 
 	useEffect(() => {
@@ -8,7 +8,5 @@ let UseDidUpdateEffect = (fn: any, inputs: any) => {
 			return fn()
 		}
 		didMountRef.current = true
-	}, inputs)
+	}, [fn, inputs])
 }
-
-export default UseDidUpdateEffect

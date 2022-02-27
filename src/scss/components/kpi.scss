@@ -90,8 +90,12 @@
 
 @media screen and (max-width: 576px) {
 	.kpi {
+		margin-bottom: 2rem;
 		&-box {
 			width: 100%;
+			&:last-of-type {
+				margin-bottom: 0;
+			}
 		}
 	}
 }

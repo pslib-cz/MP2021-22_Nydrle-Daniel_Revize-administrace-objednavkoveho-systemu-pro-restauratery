@@ -1,16 +1,15 @@
-import { faPencilAlt, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { api } from "../../config/api"
 import { useRequireAuth } from "../auth/useRequireAuth"
 import ICategory from "../../interfaces/ICategory"
 import IProduct from "../../interfaces/IProduct"
-import useToken from "../useToken"
-import ProductsTable from "../ProductsTable"
-import Category from "../Category"
-import Loader from "../Loader"
+import { useToken } from "../useToken"
+import { Category } from "../Category"
+import { Loader } from "../Loader"
 
-const Items = () => {
+export const Items = () => {
 	document.title = "Sortiment"
 	const [isLoading, setIsLoading] = useState(true)
 	const [categories, setCategories] = useState<ICategory[]>([])
@@ -18,13 +17,7 @@ const Items = () => {
 	const { token } = useToken()
 	useRequireAuth()
 
-	useEffect(() => {
-		getCategories()
-		getProducts()
-		setIsLoading(false)
-	}, [])
-
-	let getCategories = () => {
+	const getCategories = () => {
 		api.get("/category/all", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -34,7 +27,7 @@ const Items = () => {
 		})
 	}
 
-	let getProducts = () => {
+	const getProducts = () => {
 		api.get("/product/all", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -44,13 +37,20 @@ const Items = () => {
 		})
 	}
 
-	let getFilteredProducts = (categoryId: number): IProduct[] => {
+	useEffect(() => {
+		getCategories()
+		getProducts()
+		setIsLoading(false)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	const getFilteredProducts = (categoryId: number): IProduct[] => {
 		return products.filter((i: IProduct) => {
 			return i.cat === categoryId
 		})
 	}
 
-	let addCategory = () => {
+	const addCategory = () => {
 		api.post(
 			"/category",
 			{
@@ -69,7 +69,7 @@ const Items = () => {
 		getCategories()
 	}
 
-	let deleteCategory = (id: number) => {
+	const deleteCategory = (id: number) => {
 		setCategories(categories.filter((c) => c.id !== id))
 	}
 
@@ -113,5 +113,3 @@ const Items = () => {
 		</div>
 	)
 }
-
-export default Items
