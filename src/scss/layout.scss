@@ -3,3 +3,17 @@
 	flex-direction: column;
 	align-items: center;
 }
+
+footer {
+	display: flex;
+	justify-content: center;
+	padding: 3rem 0;
+	text-decoration: none;
+	a {
+		display: inline-block;
+		margin: 0 0.4ch;
+		color: $blue-dark;
+		text-decoration: none;
+		@include underline();
+	}
+}

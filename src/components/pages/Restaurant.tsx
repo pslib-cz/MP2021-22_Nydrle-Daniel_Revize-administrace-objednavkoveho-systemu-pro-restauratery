@@ -13,10 +13,12 @@ import RestaurantData from "../../interfaces/IRestaurant"
 import { useRequireAuth } from "../auth/useRequireAuth"
 import { BusinessHour } from "../BusinessHour"
 import { useDidUpdateEffect } from "../functions/useDidUpdateEffect"
+import { Loader } from "../Loader"
 import { TrueFalseIcon } from "../TrueFalseIcon"
 import { useToken } from "../useToken"
 
 export const Restaurant = (props: any) => {
+	const [isLoading, setIsLoading] = useState(true)
 	const [restaurantData, setRestaurantData] = useState<RestaurantData>()
 	const [mixedCategory, setMixedCategory] = useState<Category>()
 	const [businessHours, setBusinessHours] = useState<IBusinessHour[]>([])
@@ -25,7 +27,7 @@ export const Restaurant = (props: any) => {
 	useRequireAuth()
 	const { token } = useToken()
 
-	useEffect(() => {
+	const getRestaurant = () => {
 		api.get("/property", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -66,9 +68,6 @@ export const Restaurant = (props: any) => {
 			})
 			setBusinessHours(_businessHours)
 		})
-	}, [props, token])
-
-	useDidUpdateEffect(() => {
 		api.get("/category/all", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -83,213 +82,258 @@ export const Restaurant = (props: any) => {
 
 			setMixedCategory(_mixedCategory)
 		})
+	}
+
+	useEffect(() => {
+		getRestaurant()
+		setIsLoading(false)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [restaurantData])
 
 	return (
 		<div className="page page-restaurant">
-			<div className="left">
-				<section className="page-restaurant-section-general">
-					<header className="page-restaurant-section-header">
-						<h2 className="page-restaurant-section-header-heading">
-							Obecná nastavení
-						</h2>
-					</header>
-					<div className="table-container">
-						<table className="table restauranttable">
-							<thead className="table-header">
-								<tr>
-									<td colSpan={2}>&nbsp;</td>
-								</tr>
-							</thead>
-							<tbody className="table-body">
-								<tr>
-									<td>Název provozovny</td>
-									<td>{restaurantData?.name}</td>
-								</tr>
-								<tr>
-									<td>Adresa provozovny</td>
-									<td>{restaurantData?.address}</td>
-								</tr>
-								<tr>
-									<td>Telefon</td>
-									<td>{restaurantData?.phone}</td>
-								</tr>
-								<tr>
-									<td>Platební metody</td>
-									<td className="payments">
-										<section>
-											<span>Hotovost</span>
-											<TrueFalseIcon
-												val={restaurantData?.pymt[0]}
-											/>
-										</section>
-										<section>
-											<span>Karta</span>
-											<TrueFalseIcon
-												val={restaurantData?.pymt[1]}
-											/>
-										</section>
-										<section>
-											<span>Stravenky</span>
-											<TrueFalseIcon
-												val={restaurantData?.pymt[2]}
-											/>
-										</section>
-										<section>
-											<span>Online</span>
-											<TrueFalseIcon
-												val={
-													restaurantData?.onlinepay_meta
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<div className="left">
+						<section className="page-restaurant-section-general">
+							<header className="page-restaurant-section-header">
+								<h2 className="page-restaurant-section-header-heading">
+									Obecná nastavení
+								</h2>
+							</header>
+							<div className="table-container">
+								<table className="table restauranttable">
+									<thead className="table-header">
+										<tr>
+											<td colSpan={2}>&nbsp;</td>
+										</tr>
+									</thead>
+									<tbody className="table-body">
+										<tr>
+											<td>Název provozovny</td>
+											<td>{restaurantData?.name}</td>
+										</tr>
+										<tr>
+											<td>Adresa provozovny</td>
+											<td>{restaurantData?.address}</td>
+										</tr>
+										<tr>
+											<td>Telefon</td>
+											<td>{restaurantData?.phone}</td>
+										</tr>
+										<tr>
+											<td>Platební metody</td>
+											<td className="payments">
+												<section>
+													<span>Hotovost</span>
+													<TrueFalseIcon
+														val={
+															restaurantData
+																?.pymt[0]
+														}
+													/>
+												</section>
+												<section>
+													<span>Karta</span>
+													<TrueFalseIcon
+														val={
+															restaurantData
+																?.pymt[1]
+														}
+													/>
+												</section>
+												<section>
+													<span>Stravenky</span>
+													<TrueFalseIcon
+														val={
+															restaurantData
+																?.pymt[2]
+														}
+													/>
+												</section>
+												<section>
+													<span>Online</span>
+													<TrueFalseIcon
+														val={
+															restaurantData?.onlinepay_meta
+														}
+													/>
+												</section>
+											</td>
+										</tr>
+										<tr>
+											<td>Zobrazovat kód jídla</td>
+											<td>
+												<TrueFalseIcon
+													val={
+														restaurantData?.show_item_code
+													}
+												/>
+											</td>
+										</tr>
+										<tr>
+											<td>Zobrazovat složení jídel</td>
+											<td>
+												<TrueFalseIcon
+													val={
+														restaurantData?.show_ingreds
+													}
+												/>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Upozornění na nové objednávky
+												emailem
+											</td>
+											<td>
+												<TrueFalseIcon
+													val={
+														restaurantData?.send_emails
+													}
+												/>
+											</td>
+										</tr>
+										<tr>
+											<td>Půlená pizza</td>
+											<td>
+												Zapnuto pro{" "}
+												<b>{mixedCategory?.name}</b>
+											</td>
+										</tr>
+										<tr>
+											<td>Poznámka - hlavička stránky</td>
+											<td>
+												{
+													restaurantData?.options
+														.memo_head
 												}
-											/>
-										</section>
-									</td>
-								</tr>
-								<tr>
-									<td>Zobrazovat kód jídla</td>
-									<td>
-										<TrueFalseIcon
-											val={restaurantData?.show_item_code}
-										/>
-									</td>
-								</tr>
-								<tr>
-									<td>Zobrazovat složení jídel</td>
-									<td>
-										<TrueFalseIcon
-											val={restaurantData?.show_ingreds}
-										/>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Upozornění na nové objednávky emailem
-									</td>
-									<td>
-										<TrueFalseIcon
-											val={restaurantData?.send_emails}
-										/>
-									</td>
-								</tr>
-								<tr>
-									<td>Půlená pizza</td>
-									<td>
-										Zapnuto pro <b>{mixedCategory?.name}</b>
-									</td>
-								</tr>
-								<tr>
-									<td>Poznámka - hlavička stránky</td>
-									<td>{restaurantData?.options.memo_head}</td>
-								</tr>
-								<tr>
-									<td>Poznámka - potvrzení objednávky</td>
-									<td>
-										{restaurantData?.options.memo_2_left}
-									</td>
-								</tr>
-								<tr>
-									<td>Facebook</td>
-									<td>
-										{
-											restaurantData?.options.social_links
-												.fb
-										}
-									</td>
-								</tr>
-								<tr>
-									<td>Instagram</td>
-									<td>
-										{
-											restaurantData?.options.social_links
-												.ig
-										}
-									</td>
-								</tr>
-							</tbody>
-						</table>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Poznámka - potvrzení objednávky
+											</td>
+											<td>
+												{
+													restaurantData?.options
+														.memo_2_left
+												}
+											</td>
+										</tr>
+										<tr>
+											<td>Facebook</td>
+											<td>
+												{
+													restaurantData?.options
+														.social_links.fb
+												}
+											</td>
+										</tr>
+										<tr>
+											<td>Instagram</td>
+											<td>
+												{
+													restaurantData?.options
+														.social_links.ig
+												}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
 					</div>
-				</section>
-			</div>
-			<div className="right">
-				<section className="page-restaurant-section-hours">
-					<header className="page-restaurant-section-header">
-						<h2 className="page-restaurant-section-header-heading">
-							Příjem objednávek
-						</h2>
-					</header>
-					<div className="table-container">
-						<table className="table">
-							<thead className="table-header">
-								<tr>
-									<th>
-										<FontAwesomeIcon icon={faCalendarDay} />
-										Den
-									</th>
-									<th>
-										<FontAwesomeIcon icon={faDoorOpen} />
-										Otevřeno
-									</th>
-									<th>
-										<FontAwesomeIcon
-											icon={faHourglassStart}
-										/>
-										Začátek
-									</th>
-									<th>
-										<FontAwesomeIcon
-											icon={faHourglassEnd}
-										/>
-										Konec
-									</th>
-								</tr>
-							</thead>
-							<tbody className="table-body">
-								{businessHours.map((b: IBusinessHour) => {
-									return <BusinessHour {...b} />
-								})}
-							</tbody>
-						</table>
+					<div className="right">
+						<section className="page-restaurant-section-hours">
+							<header className="page-restaurant-section-header">
+								<h2 className="page-restaurant-section-header-heading">
+									Příjem objednávek
+								</h2>
+							</header>
+							<div className="table-container">
+								<table className="table">
+									<thead className="table-header">
+										<tr>
+											<th>
+												<FontAwesomeIcon
+													icon={faCalendarDay}
+												/>
+												Den
+											</th>
+											<th>
+												<FontAwesomeIcon
+													icon={faDoorOpen}
+												/>
+												Otevřeno
+											</th>
+											<th>
+												<FontAwesomeIcon
+													icon={faHourglassStart}
+												/>
+												Začátek
+											</th>
+											<th>
+												<FontAwesomeIcon
+													icon={faHourglassEnd}
+												/>
+												Konec
+											</th>
+										</tr>
+									</thead>
+									<tbody className="table-body">
+										{businessHours.map(
+											(b: IBusinessHour) => {
+												return <BusinessHour {...b} />
+											}
+										)}
+									</tbody>
+								</table>
+							</div>
+						</section>
+						<section className="page-restaurant-section-account">
+							<header className="page-restaurant-section-header">
+								<h2 className="page-restaurant-section-header-heading">
+									Nastavení účtu
+								</h2>
+							</header>
+							<div className="table-container">
+								<table className="table">
+									<thead className="table-header">
+										<tr>
+											<td colSpan={2}>&nbsp;</td>
+										</tr>
+									</thead>
+									<tbody className="table-body">
+										<tr>
+											<td>Jméno</td>
+											<td>demo</td>
+										</tr>
+										<tr>
+											<td>Nové heslo</td>
+											<td>
+												<input type="password" />
+											</td>
+										</tr>
+										<tr>
+											<td>Nové heslo znovu</td>
+											<td>
+												<input type="password" />
+											</td>
+										</tr>
+										<tr>
+											<td>E-mail</td>
+											<td>{restaurantData?.email}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
 					</div>
-				</section>
-				<section className="page-restaurant-section-account">
-					<header className="page-restaurant-section-header">
-						<h2 className="page-restaurant-section-header-heading">
-							Nastavení účtu
-						</h2>
-					</header>
-					<div className="table-container">
-						<table className="table">
-							<thead className="table-header">
-								<tr>
-									<td colSpan={2}>&nbsp;</td>
-								</tr>
-							</thead>
-							<tbody className="table-body">
-								<tr>
-									<td>Jméno</td>
-									<td>demo</td>
-								</tr>
-								<tr>
-									<td>Nové heslo</td>
-									<td>
-										<input type="password" />
-									</td>
-								</tr>
-								<tr>
-									<td>Nové heslo znovu</td>
-									<td>
-										<input type="password" />
-									</td>
-								</tr>
-								<tr>
-									<td>E-mail</td>
-									<td>{restaurantData?.email}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</section>
-			</div>
+				</>
+			)}
 		</div>
 	)
 }

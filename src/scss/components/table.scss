@@ -10,6 +10,9 @@
 		border-radius: 1.6rem;
 		overflow: hidden;
 		margin-bottom: 3rem;
+		&:last-of-type {
+			margin-bottom: 0;
+		}
 	}
 	&-header {
 		color: white;

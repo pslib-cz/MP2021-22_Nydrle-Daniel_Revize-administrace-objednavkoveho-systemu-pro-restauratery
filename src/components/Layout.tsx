@@ -123,7 +123,16 @@ export const Layout = ({ children, clearToken, ...rest }: any) => {
 			<div className="container">
 				<Outlet />
 			</div>
-			<footer className="container"></footer>
+			<footer className="container">
+				&copy;
+				<a
+					href="https://mealgo.cz"
+					target={"_blank"}
+					rel={"noreferrer"}>
+					Mealgo
+				</a>
+				2022
+			</footer>
 		</main>
 	)
 }
