@@ -11,6 +11,7 @@ export const Layout = ({ children, clearToken, ...rest }: any) => {
 	const { token } = useToken()
 	const [restaurantData, setRestaurantData] = useState<IRestaurant>()
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+	document.title = `${restaurantData?.name}`
 
 	const getRestaurantData = () => {
 		api.get("/property", {

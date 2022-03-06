@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { api } from "../config/api"
+import { api } from "../../config/api"
 
 export const Login = ({ setToken }: any) => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const navigate = useNavigate()
+	document.title = "Mealgo administrace provozovny"
 
 	const login = () => {
 		api.post("/login", { email, password }).then((response) => {

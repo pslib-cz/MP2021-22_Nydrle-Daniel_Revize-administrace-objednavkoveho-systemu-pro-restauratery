@@ -4,11 +4,11 @@
 	border-spacing: 0;
 	@include center();
 	border-collapse: separate;
-	@include shadow();
 	overflow: auto;
 	&-container {
 		border-radius: 1.6rem;
 		overflow: hidden;
+		@include shadow();
 		margin-bottom: 3rem;
 		&:last-of-type {
 			margin-bottom: 0;
@@ -62,6 +62,21 @@
 							margin-right: 0.4rem;
 						}
 					}
+				}
+			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		&-container {
+			@include shadow-dark();
+		}
+		&-body {
+			tr {
+				td {
+					background-color: $blue-dark;
+					color: white;
+					border-top: 2px solid $blue-extradark;
 				}
 			}
 		}

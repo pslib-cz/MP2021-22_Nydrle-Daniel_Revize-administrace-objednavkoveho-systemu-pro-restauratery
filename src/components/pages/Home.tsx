@@ -10,7 +10,6 @@ import ChartData from "../../interfaces/IChartData"
 import { Loader } from "../Loader"
 
 export const Home = () => {
-	document.title = ""
 	const [isLoading, setIsLoading] = useState(true)
 	const [orders, setOrders] = useState<Order[]>([])
 	const [chartData, setChartData] = useState<ChartData[]>([])
