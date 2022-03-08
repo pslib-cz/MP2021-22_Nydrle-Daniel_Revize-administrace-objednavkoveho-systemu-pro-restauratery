@@ -12,7 +12,7 @@
 }
 
 @mixin shadow-dark {
-	box-shadow: 0px 0px 2rem 0px $blue-extradark;
+	box-shadow: 0px 0px 1rem 0px $blue-semidark;
 }
 
 @mixin center {

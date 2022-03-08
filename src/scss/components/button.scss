@@ -11,6 +11,8 @@
 	border: none;
 	width: max-content;
 	transition: 0.1s all linear;
+	@include shadow();
+	@include transition-short();
 	svg {
 		margin-right: 0.4rem;
 	}
@@ -18,5 +20,21 @@
 		background-color: $orange;
 		color: white;
 		cursor: pointer;
+	}
+
+	&--change-theme {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		height: 3rem;
+		width: 3rem;
+		right: 1rem;
+		bottom: 1rem;
+		margin-right: 0;
+		font-size: 1.2rem;
+		svg {
+			margin-right: 0;
+		}
 	}
 }

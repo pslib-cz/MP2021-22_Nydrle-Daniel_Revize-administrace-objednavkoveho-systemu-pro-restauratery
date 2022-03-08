@@ -51,18 +51,6 @@
 			display: none;
 		}
 	}
-
-	@media (prefers-color-scheme: dark) {
-		color: white;
-		background-color: $blue-dark;
-		@include shadow-dark();
-		&-nav {
-			&-link {
-				color: white;
-				@include underline(white);
-			}
-		}
-	}
 }
 
 @media screen and (max-width: 1200px) {

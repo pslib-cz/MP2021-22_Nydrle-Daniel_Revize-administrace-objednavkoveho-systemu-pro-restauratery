@@ -1,0 +1,104 @@
+.App[data-theme="dark"] {
+	color: white;
+	background-color: $blue-dark;
+	.button {
+		background-color: $blue-dark;
+		color: white;
+		@include shadow-dark();
+	}
+
+	input {
+		background-color: $blue-dark;
+		color: white;
+		border: none !important;
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			-webkit-box-shadow: 0 0 0 100px $blue-dark inset !important;
+		}
+	}
+
+	.menu {
+		color: white;
+		background-color: $blue-dark;
+		@include shadow-dark();
+		&-nav {
+			&-link {
+				color: white;
+				@include underline(white);
+			}
+			&-logout-button {
+				background-color: $blue-dark;
+			}
+		}
+	}
+
+	.table {
+		&-body {
+			tr {
+				background-color: $blue-dark;
+			}
+		}
+		&-container {
+			@include shadow-dark();
+		}
+		&-body {
+			tr {
+				background-color: $blue-dark;
+				&:first-of-type {
+					td {
+						border-top: none;
+					}
+				}
+				td {
+					color: white;
+					border-top: 2px solid $blue-semidark;
+				}
+			}
+		}
+	}
+
+	.login {
+		color: white;
+		&-form {
+			background-color: $blue-dark;
+			@include shadow-dark();
+			& > input {
+				border: 1px solid white !important;
+			}
+		}
+	}
+
+	.category {
+		&-header {
+			&-heading {
+				color: white;
+			}
+		}
+	}
+
+	.kpi {
+		&-box {
+			@include shadow-dark();
+			background-color: $blue-dark;
+			color: white;
+		}
+	}
+
+	.charts {
+		&-chartcontainer {
+			@include shadow-dark();
+			background-color: $blue-dark;
+		}
+	}
+
+	footer {
+		a {
+			color: white;
+			&::after {
+				border-bottom: 1px solid white;
+			}
+		}
+	}
+}

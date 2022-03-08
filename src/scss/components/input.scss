@@ -2,10 +2,18 @@ input {
 	border: none;
 	color: $blue-extradark;
 	padding: 0.4rem 0.8rem;
-	border-radius: 1rem;
+	border-radius: 5rem;
 	font-family: "Poppins", sans-serif;
+	background-color: white;
 
 	&:focus {
 		outline: none;
+	}
+
+	&:-webkit-autofill,
+	&:-webkit-autofill:hover,
+	&:-webkit-autofill:focus,
+	&:-webkit-autofill:active {
+		-webkit-box-shadow: 0 0 0 100px white inset !important;
 	}
 }

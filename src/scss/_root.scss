@@ -12,13 +12,14 @@ body {
 	overflow-x: hidden;
 	scroll-behavior: smooth;
 	font-family: "Poppins", sans-serif !important;
-	@media (prefers-color-scheme: dark) {
-		background-color: $blue-dark;
-	}
 }
 
 body {
 	width: 100vw;
+}
+
+.App {
+	min-height: 100vh;
 }
 
 .container {

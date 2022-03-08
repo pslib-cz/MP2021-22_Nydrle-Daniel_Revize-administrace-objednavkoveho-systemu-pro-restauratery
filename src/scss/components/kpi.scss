@@ -15,6 +15,7 @@
 		color: $blue-dark;
 		border-radius: 2rem;
 		@include shadow();
+		@include transition-short();
 		&:first-of-type {
 			margin-left: 0;
 		}
@@ -33,6 +34,7 @@
 			&-value {
 				font-size: 3rem;
 				margin: 0;
+				@include transition-short();
 			}
 			&-difference {
 				display: flex;
@@ -42,6 +44,7 @@
 					top: -0.1rem;
 					font-size: 1.6rem;
 					margin-right: 1rem;
+					@include transition-short();
 				}
 				svg {
 					font-size: 1.4rem;
@@ -50,9 +53,6 @@
 		}
 
 		@media (prefers-color-scheme: dark) {
-			@include shadow-dark();
-			background-color: $blue-dark;
-			color: white;
 		}
 	}
 }

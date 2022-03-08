@@ -8,13 +8,52 @@ import { Items } from "./components/pages/Items"
 import { Orders } from "./components/pages/Orders"
 import { Restaurant } from "./components/pages/Restaurant"
 import { Areas } from "./components/pages/Areas"
+import { useEffect, useState } from "react"
+import { Theme } from "./interfaces/ETheme"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons"
 
 function App() {
 	const { token, setToken, clearToken } = useToken()
+	const [theme, setTheme] = useState<Theme>(Theme.Light)
+
+	const toggleTheme = () => {
+		switch (theme) {
+			case Theme.Dark:
+				setTheme(Theme.Light)
+				localStorage.setItem("mealgoTheme", Theme.Light)
+				break
+			case Theme.Light:
+				setTheme(Theme.Dark)
+				localStorage.setItem("mealgoTheme", Theme.Dark)
+				break
+			default:
+				break
+		}
+	}
+
+	useEffect(() => {
+		if (localStorage.getItem("mealgoTheme") !== null) {
+			switch (localStorage.getItem("mealgoTheme")) {
+				case Theme.Light:
+					setTheme(Theme.Light)
+					break
+				case Theme.Dark:
+					setTheme(Theme.Dark)
+					break
+				default:
+					break
+			}
+		} else {
+			window.matchMedia("(prefers-color-scheme: dark)").matches
+				? localStorage.setItem("mealgoTheme", "dark")
+				: localStorage.setItem("mealgoTheme", "light")
+		}
+	}, [])
 
 	if (token === undefined || token === null) {
 		return (
-			<div className="App">
+			<div className="App" data-theme={theme.toString()}>
 				<BrowserRouter>
 					<Routes>
 						<Route
@@ -31,7 +70,15 @@ function App() {
 		)
 	} else {
 		return (
-			<div className="App">
+			<div className="App" data-theme={theme.toString()}>
+				<button
+					className="button button--change-theme"
+					onClick={() => {
+						toggleTheme()
+					}}>
+					{theme === Theme.Dark && <FontAwesomeIcon icon={faSun} />}
+					{theme === Theme.Light && <FontAwesomeIcon icon={faMoon} />}
+				</button>
 				<BrowserRouter>
 					<Routes>
 						<Route element={<Layout clearToken={clearToken} />}>

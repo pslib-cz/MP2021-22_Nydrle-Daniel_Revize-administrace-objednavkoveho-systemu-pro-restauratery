@@ -5,13 +5,14 @@
 		flex-wrap: wrap;
 		align-items: center;
 		padding: 1rem 0;
+		@include transition-short();
 		p {
 			width: 100%;
 			margin-bottom: 0;
 		}
 		&--is-edited {
 			margin-top: 1rem;
-			margin-bottom: 1rem;
+			margin-bottom: 1rem !important;
 			padding: 0;
 			width: 60%;
 			.table {
@@ -51,9 +52,11 @@
 		&-heading {
 			display: block;
 			margin: 0 2rem 0 0;
+			@include transition-short();
 		}
 		.button {
 			border: 1px solid transparent;
+			@include transition-short();
 		}
 		&-button {
 			&--add-item {

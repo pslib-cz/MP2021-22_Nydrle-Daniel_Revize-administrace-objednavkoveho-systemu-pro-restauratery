@@ -23,11 +23,6 @@
 			width: 100% !important;
 			height: 100% !important;
 		}
-
-		@media (prefers-color-scheme: dark) {
-			@include shadow-dark();
-			background-color: $blue-dark;
-		}
 	}
 }
 

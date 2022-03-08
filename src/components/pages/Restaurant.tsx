@@ -80,12 +80,12 @@ export const Restaurant = (props: any) => {
 			})[0]
 
 			setMixedCategory(_mixedCategory)
+			setIsLoading(false)
 		})
 	}
 
 	useEffect(() => {
 		getRestaurant()
-		setIsLoading(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [restaurantData])
 

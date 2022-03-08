@@ -5,6 +5,7 @@
 	@include center();
 	border-collapse: separate;
 	overflow: auto;
+	@include transition-short();
 	&-container {
 		border-radius: 1.6rem;
 		overflow: hidden;
@@ -30,6 +31,7 @@
 	}
 	&-body {
 		border-radius: 1.6rem;
+		@include transition-short();
 		&-row {
 			&--is-edited {
 				td {
@@ -44,6 +46,7 @@
 				padding: 0.6rem 0.8rem;
 				vertical-align: middle;
 				border-top: 2px solid $gray;
+				@include transition-short();
 			}
 			&:first-child {
 				td {
@@ -62,21 +65,6 @@
 							margin-right: 0.4rem;
 						}
 					}
-				}
-			}
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		&-container {
-			@include shadow-dark();
-		}
-		&-body {
-			tr {
-				td {
-					background-color: $blue-dark;
-					color: white;
-					border-top: 2px solid $blue-extradark;
 				}
 			}
 		}

@@ -20,13 +20,8 @@ export const Orders = () => {
 	const { token } = useToken()
 	useRequireAuth()
 
-	useEffect(() => {
-		getOrders()
-		setIsLoading(false)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pageCounter])
-
 	const getOrders = () => {
+		setIsLoading(true)
 		api.get(`/order/all?count=10&page=${pageCounter}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -34,8 +29,15 @@ export const Orders = () => {
 		}).then((response) => {
 			let _orders: Order[] = Object.values(response.data.data.orders)
 			setOrders(_orders)
+			setIsLoading(false)
 		})
+		return { orders }
 	}
+
+	useEffect(() => {
+		getOrders()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pageCounter])
 
 	return (
 		<div className="page page-orders">

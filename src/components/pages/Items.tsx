@@ -34,13 +34,13 @@ export const Items = () => {
 			},
 		}).then((response) => {
 			setProducts(response.data.data)
+			setIsLoading(false)
 		})
 	}
 
 	useEffect(() => {
 		getCategories()
 		getProducts()
-		setIsLoading(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

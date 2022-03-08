@@ -1,6 +1,6 @@
 .productstable {
 	&-header {
-        .img,
+		.img,
 		.active,
 		.is_supplement,
 		.is_restricted,
@@ -25,6 +25,7 @@
 			border: 1px solid #000;
 			background-color: transparent;
 			@include transition-short();
+			box-shadow: none !important;
 			&:last-of-type {
 				margin-right: 0;
 			}
@@ -68,29 +69,29 @@
 			width: 10rem;
 			background-color: $pink-extralight;
 			input {
-                position: relative;
-                left: -0.3rem;
+				position: relative;
+				left: -0.3rem;
 				display: block;
 				width: 80%;
 			}
 		}
-        .img {
-            img {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-        .name {
-            width: 20rem;
-        }
-        .img,
+		.img {
+			img {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+		.name {
+			width: 20rem;
+		}
+		.img,
 		.active,
 		.is_supplement,
 		.is_restricted {
 			height: 100%;
 			input {
-                position: static;
+				position: static;
 				display: block;
 				width: auto;
 				margin-left: auto;
@@ -104,14 +105,14 @@
 			}
 		}
 	}
-    .img {
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
-    .img,
+	.img {
+		img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	.img,
 	.active,
 	.is_supplement,
 	.is_restricted {

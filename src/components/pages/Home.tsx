@@ -19,6 +19,7 @@ export const Home = () => {
 	useRequireAuth()
 
 	const getOrders = () => {
+		setIsLoading(true)
 		api.get("/order/all?count=5", {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -40,13 +41,13 @@ export const Home = () => {
 			let _chartData: ChartData[] = Array.from(response.data.data)
 			setChartData(_chartData)
 			setKpiData(_chartData.slice(Math.max(_chartData.length - 2, 0)))
+			setIsLoading(false)
 		})
 	}
 
 	useEffect(() => {
 		getOrders()
 		getStats()
-		setIsLoading(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
