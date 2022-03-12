@@ -157,12 +157,6 @@ export const OrderCharts = (props: Props) => {
 			},
 		}
 
-		let averages: number[] = []
-
-		props.chartData.forEach((c: IChartData) => {
-			averages.push(Math.round(parseInt(c.revenue) / c.orders))
-		})
-
 		setOrderData({
 			..._orderData,
 			datasets: [
@@ -173,7 +167,9 @@ export const OrderCharts = (props: Props) => {
 					type: "line" as const,
 					label: "Průměrná útrata",
 					yAxisID: "averages",
-					data: averages,
+					data: props.chartData.map((c) => {
+						return Math.round(parseInt(c.revenue) / c.orders)
+					}),
 					fill: false,
 					borderColor: clr.PINK,
 					borderWidth: 5,

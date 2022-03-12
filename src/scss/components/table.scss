@@ -35,7 +35,7 @@
 		&-row {
 			&--is-edited {
 				td {
-					background-color: $gray;
+					background-color: $gray-light;
 				}
 			}
 		}
@@ -45,7 +45,7 @@
 			td {
 				padding: 0.6rem 0.8rem;
 				vertical-align: middle;
-				border-top: 2px solid $gray;
+				border-top: 2px solid $gray-light;
 				@include transition-short();
 			}
 			&:first-child {

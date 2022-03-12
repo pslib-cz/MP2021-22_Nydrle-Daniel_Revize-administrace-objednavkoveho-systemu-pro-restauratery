@@ -1,51 +1,109 @@
 .App[data-theme="dark"] {
 	color: white;
-	background-color: $blue-dark;
+	background-color: $blue;
 	.button {
-		background-color: $blue-dark;
+		background-color: $blue;
 		color: white;
 		@include shadow-dark();
+		&:hover {
+			background-color: $orange;
+			color: $blue;
+		}
+		&--change-theme {
+			&:hover {
+				background-color: white;
+				color: $blue;
+			}
+		}
+		&--add {
+			&:hover {
+				background-color: $green;
+			}
+		}
+		&--edit {
+			&:hover {
+				background-color: $yellow;
+			}
+		}
+		&--delete {
+			&:hover {
+				background-color: $red;
+			}
+		}
 	}
 
 	input {
-		background-color: $blue-dark;
+		background-color: $blue;
 		color: white;
-		border: none !important;
+		border: 1px solid $blue-light;
 		&:-webkit-autofill,
 		&:-webkit-autofill:hover,
 		&:-webkit-autofill:focus,
 		&:-webkit-autofill:active {
-			-webkit-box-shadow: 0 0 0 100px $blue-dark inset !important;
+			-webkit-box-shadow: 0 0 0 1000px $blue inset !important;
 		}
 	}
 
 	.menu {
 		color: white;
-		background-color: $blue-dark;
+		background-color: $blue;
 		@include shadow-dark();
 		&-nav {
 			&-link {
 				color: white;
 				@include underline(white);
+				&::after {
+					border-bottom: 1px solid white !important;
+				}
 			}
 			&-logout-button {
-				background-color: $blue-dark;
+				color: white;
+				background-color: $blue;
+				&:hover {
+					color: $blue;
+					background-color: $red;
+				}
+			}
+			&--mobile {
+				&-openburger {
+					&:hover {
+						span {
+							background-color: $blue;
+						}
+					}
+					span {
+						background-color: white;
+					}
+				}
+				&-closeburger {
+					&:hover {
+						svg {
+							color: $blue;
+						}
+					}
+					svg {
+						color: white;
+					}
+				}
+				&-sidebar {
+					background-color: $blue;
+					&.is-open {
+						@include shadow-dark();
+					}
+				}
 			}
 		}
 	}
 
 	.table {
-		&-body {
+		&-header {
 			tr {
-				background-color: $blue-dark;
+				@include gradient($pink-dark, $orange-dark);
 			}
 		}
-		&-container {
-			@include shadow-dark();
-		}
 		&-body {
 			tr {
-				background-color: $blue-dark;
+				background-color: $blue;
 				&:first-of-type {
 					td {
 						border-top: none;
@@ -53,16 +111,19 @@
 				}
 				td {
 					color: white;
-					border-top: 2px solid $blue-semidark;
+					border-top: 2px solid $blue-dark;
 				}
 			}
+		}
+		&-container {
+			@include shadow-dark();
 		}
 	}
 
 	.login {
 		color: white;
 		&-form {
-			background-color: $blue-dark;
+			background-color: $blue;
 			@include shadow-dark();
 			& > input {
 				border: 1px solid white !important;
@@ -75,13 +136,52 @@
 			&-heading {
 				color: white;
 			}
+			&-button {
+				&--edit-category {
+				}
+				&--add-item {
+					&:hover {
+						background-color: $green;
+					}
+				}
+				&--move-category {
+					background-color: transparent;
+					box-shadow: none;
+					&:hover {
+						background-color: transparent;
+						svg {
+							color: white;
+						}
+					}
+					svg {
+						color: white !important;
+					}
+				}
+			}
+			button {
+				&:hover {
+					color: $blue;
+				}
+			}
+		}
+	}
+
+	.page {
+		&-items {
+			&-button {
+				&--add-category {
+					&:hover {
+						background-color: $green;
+					}
+				}
+			}
 		}
 	}
 
 	.kpi {
 		&-box {
 			@include shadow-dark();
-			background-color: $blue-dark;
+			background-color: $blue;
 			color: white;
 		}
 	}
@@ -89,7 +189,7 @@
 	.charts {
 		&-chartcontainer {
 			@include shadow-dark();
-			background-color: $blue-dark;
+			background-color: $blue;
 		}
 	}
 

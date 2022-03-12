@@ -8,11 +8,11 @@
 }
 
 @mixin shadow {
-	box-shadow: 0px 0px 2rem 0px $gray-darker;
+	box-shadow: 0px 0px 2rem 0px $gray-semilight !important;
 }
 
 @mixin shadow-dark {
-	box-shadow: 0px 0px 1rem 0px $blue-semidark;
+	box-shadow: 0px 0px 1rem 0px $blue-dark !important;
 }
 
 @mixin center {
@@ -49,7 +49,7 @@
 	}
 }
 
-@mixin underline($color: $blue-dark) {
+@mixin underline($color: $blue) {
 	&::after {
 		display: block;
 		content: "";

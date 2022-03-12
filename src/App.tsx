@@ -12,6 +12,8 @@ import { useEffect, useState } from "react"
 import { Theme } from "./interfaces/ETheme"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons"
+import { BLUE, WHITE } from "./plugins/plugin.colors"
+import { Chart } from "chart.js"
 
 function App() {
 	const { token, setToken, clearToken } = useToken()
@@ -50,6 +52,10 @@ function App() {
 				: localStorage.setItem("mealgoTheme", "light")
 		}
 	}, [])
+
+	useEffect(() => {
+		Chart.defaults.color = theme === Theme.Light ? BLUE : WHITE
+	}, [theme])
 
 	if (token === undefined || token === null) {
 		return (

@@ -14,7 +14,7 @@
 	&-body {
 		td {
 			.fa-grip-vertical {
-				color: $gray-darker;
+				color: $gray-semilight;
 			}
 		}
 		&-button {
@@ -67,7 +67,6 @@
 	&--is-edited {
 		td {
 			width: 10rem;
-			background-color: $pink-extralight;
 			input {
 				position: relative;
 				left: -0.3rem;
@@ -104,6 +103,9 @@
 				margin-right: auto;
 			}
 		}
+	}
+	&--is-dragging {
+		filter: opacity(0.5);
 	}
 	.img {
 		img {

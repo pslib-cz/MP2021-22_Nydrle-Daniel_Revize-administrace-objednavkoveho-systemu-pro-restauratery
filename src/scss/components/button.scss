@@ -1,14 +1,21 @@
+@mixin buttonStyle($color) {
+	border: 1px solid transparent;
+	border-color: $color !important;
+	&:hover {
+		background-color: $color;
+	}
+}
+
 .button {
 	display: block;
 	font-family: "Poppins", sans-serif;
 	padding: 0.4rem 1rem;
-	color: $blue-dark;
+	color: $blue;
 	background-color: white;
 	text-decoration: none;
-	border-right: 1rem;
+	border: none;
 	margin-right: 0.4rem;
 	border-radius: 2rem;
-	border: none;
 	width: max-content;
 	transition: 0.1s all linear;
 	@include shadow();
@@ -27,6 +34,7 @@
 		justify-content: center;
 		align-items: center;
 		position: fixed;
+		z-index: 10;
 		height: 3rem;
 		width: 3rem;
 		right: 1rem;
@@ -36,5 +44,19 @@
 		svg {
 			margin-right: 0;
 		}
+		&:hover {
+			background-color: $blue;
+			color: white;
+		}
+	}
+
+	&--add {
+		@include buttonStyle($green);
+	}
+	&--edit {
+		@include buttonStyle($yellow);
+	}
+	&--delete {
+		@include buttonStyle($red);
 	}
 }

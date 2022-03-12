@@ -23,7 +23,11 @@ export const Items = () => {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((response) => {
-			setCategories(Object.values(response.data.data))
+			let _categories = Object.values(response.data.data) as ICategory[]
+			_categories = _categories.sort(
+				(a, b) => Number(a.order) - Number(b.order)
+			)
+			setCategories(_categories)
 		})
 	}
 
@@ -57,6 +61,7 @@ export const Items = () => {
 				name: "new",
 				has_images: true,
 				active: true,
+				order: categories[categories.length - 1].order + 1,
 			},
 			{
 				headers: {
@@ -73,6 +78,51 @@ export const Items = () => {
 		setCategories(categories.filter((c) => c.id !== id))
 	}
 
+	const moveCategory = (category: ICategory, direction: string): void => {
+		let _categories: ICategory[] = categories
+		let movedCategoryIndex: number = _categories.indexOf(category)
+		let movedCategoryOrder: number = category.order
+		let swappedCategoryIndex: number = 0
+		let swappedCategoryOrder: number
+		swappedCategoryIndex =
+			direction === "up" ? movedCategoryIndex - 1 : movedCategoryIndex + 1
+		console.log(swappedCategoryIndex)
+		let swappedCategory = _categories[swappedCategoryIndex]
+		swappedCategoryOrder = swappedCategory.order
+		category = { ...category, order: swappedCategoryOrder }
+		swappedCategory = { ...swappedCategory, order: movedCategoryOrder }
+		_categories[movedCategoryIndex] = swappedCategory
+		_categories[swappedCategoryIndex] = category
+		setCategories([..._categories])
+		console.log(_categories)
+		api.post(
+			`/category/${category.id}`,
+			{
+				order: swappedCategoryOrder,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		).then((response) => {
+			console.log(response)
+		})
+		api.post(
+			`/category/${swappedCategory.id}`,
+			{
+				order: movedCategoryOrder,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		).then((response) => {
+			console.log(response)
+		})
+	}
+
 	return (
 		<div className="page page-items">
 			{isLoading ? (
@@ -83,7 +133,8 @@ export const Items = () => {
 						{categories.map((category: ICategory) => {
 							return (
 								<a
-									className="button page-items-links-link"
+									key={category.id}
+									className="button"
 									href={`#${category.name}`}>
 									{category.name}
 								</a>
@@ -91,7 +142,7 @@ export const Items = () => {
 						})}
 
 						<button
-							className="button page-items-button--add-category"
+							className="button page-items-links-link button--add"
 							onClick={() => addCategory()}>
 							<FontAwesomeIcon icon={faPlus} />
 							Přidat kategorii
@@ -100,11 +151,21 @@ export const Items = () => {
 					{categories.map((category: ICategory) => {
 						return (
 							<Category
+								key={category.id}
 								propCategory={category}
 								propProducts={getFilteredProducts(category.id)}
 								callbackDeleteCategory={(id: number): void =>
 									deleteCategory(id)
 								}
+								callbackMoveCategory={(
+									category: ICategory,
+									direction: string
+								): void => moveCategory(category, direction)}
+								borderCategoriesOrders={{
+									first: categories[0].order,
+									last: categories[categories.length - 1]
+										.order,
+								}}
 							/>
 						)
 					})}

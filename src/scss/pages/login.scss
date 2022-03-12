@@ -27,7 +27,7 @@
 		}
 		& > input {
 			margin-bottom: 1.2rem;
-			border: 1px solid $gray;
+			border: 1px solid $gray-light;
 			@include transition-short();
 			&:focus {
 				border: 1px solid $pink-light;

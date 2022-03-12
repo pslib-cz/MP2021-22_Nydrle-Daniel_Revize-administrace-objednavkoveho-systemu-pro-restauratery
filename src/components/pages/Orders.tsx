@@ -22,58 +22,52 @@ export const Orders = () => {
 
 	const getOrders = () => {
 		setIsLoading(true)
-		api.get(`/order/all?count=10&page=${pageCounter}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}).then((response) => {
-			let _orders: Order[] = Object.values(response.data.data.orders)
-			setOrders(_orders)
-			setIsLoading(false)
-		})
-		return { orders }
+		return api
+			.get(`/order/all?count=10&page=${pageCounter}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				let _orders: Order[] = Object.values(response.data.data.orders)
+				setOrders(_orders)
+			})
 	}
 
 	useEffect(() => {
-		getOrders()
+		Promise.all([getOrders()]).then(() => setIsLoading(false))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pageCounter])
 
 	return (
 		<div className="page page-orders">
-			{isLoading ? (
-				<Loader />
-			) : (
-				<>
-					<div className="page-orders-buttons">
-						{!orders.find((o) => o.seq === 1) && (
-							<button
-								className="button page-orders-buttons-button page-orders-buttons-button-previous"
-								onClick={() => {
-									let temp = pageCounter
-									++temp
-									setPageCounter(temp)
-								}}>
-								<FontAwesomeIcon icon={faChevronLeft} />
-								starší
-							</button>
-						)}
-						{pageCounter > 1 && (
-							<button
-								className="button page-orders-buttons-button page-orders-buttons-button-next"
-								onClick={() => {
-									let temp = pageCounter
-									--temp
-									setPageCounter(temp)
-								}}>
-								novější
-								<FontAwesomeIcon icon={faChevronRight} />
-							</button>
-						)}
-					</div>
-					<OrdersTable orders={orders} />
-				</>
-			)}
+			<div className="page-orders-buttons">
+				{!orders.find((o) => o.seq === 1) && (
+					<button
+						className="button page-orders-buttons-button page-orders-buttons-button-previous"
+						onClick={() => {
+							let temp = pageCounter
+							++temp
+							setPageCounter(temp)
+						}}>
+						<FontAwesomeIcon icon={faChevronLeft} />
+						starší
+					</button>
+				)}
+				{pageCounter > 1 && (
+					<button
+						className="button page-orders-buttons-button page-orders-buttons-button-next"
+						onClick={() => {
+							let temp = pageCounter
+							--temp
+							setPageCounter(temp)
+						}}>
+						novější
+						<FontAwesomeIcon icon={faChevronRight} />
+					</button>
+				)}
+			</div>
+			{isLoading ? <Loader /> : <OrdersTable orders={orders} />}
 		</div>
 	)
 }

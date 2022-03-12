@@ -25,9 +25,6 @@
 					}
 				}
 				&-body {
-					input {
-						border-bottom: 1px solid $gray;
-					}
 					.name {
 						input {
 							width: 10rem;
@@ -59,24 +56,6 @@
 			@include transition-short();
 		}
 		&-button {
-			&--add-item {
-				border-color: $green !important;
-				&:hover {
-					background-color: $green;
-				}
-			}
-			&--edit-category {
-				border-color: $yellow !important;
-				&:hover {
-					background-color: $yellow;
-				}
-			}
-			&--delete-category {
-				border-color: $red !important;
-				&:hover {
-					background-color: $red;
-				}
-			}
 			&--save-category {
 				height: 1.6rem !important;
 				width: 1.6rem !important;
@@ -91,6 +70,21 @@
 					svg {
 						color: white;
 					}
+				}
+			}
+			&--move-category {
+				display: block;
+				height: auto !important;
+				width: max-content !important;
+				padding: 0%;
+				background-color: transparent;
+				box-shadow: none;
+				&:hover {
+					background-color: transparent;
+				}
+				svg {
+					color: $blue !important;
+					margin-right: 0;
 				}
 			}
 		}

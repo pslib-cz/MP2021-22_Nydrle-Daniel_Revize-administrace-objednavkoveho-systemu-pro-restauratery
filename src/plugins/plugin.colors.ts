@@ -3,6 +3,8 @@ import type { ChartArea } from "chart.js"
 export const YELLOW = "#f1bf15"
 export const PINK = "#f8507d"
 export const GREEN = "#2ecc71"
+export const BLUE = "#34495e"
+export const WHITE = "#fff"
 
 export const getGradient = (
 	ctx: CanvasRenderingContext2D,

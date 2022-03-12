@@ -1,4 +1,6 @@
 import {
+	faArrowDown,
+	faArrowUp,
 	faCheck,
 	faPencilAlt,
 	faPlus,
@@ -6,6 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
+import { DndProvider } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
 import { api } from "../config/api"
 import ICategory from "../interfaces/ICategory"
 import IProduct from "../interfaces/IProduct"
@@ -18,8 +22,16 @@ export const Category = (props: {
 	propCategory: ICategory
 	propProducts: IProduct[]
 	callbackDeleteCategory: (id: number) => void
+	callbackMoveCategory: (category: ICategory, direction: string) => void
+	borderCategoriesOrders: { first: number; last: number }
 }) => {
-	let { propCategory, propProducts, callbackDeleteCategory } = props
+	let {
+		propCategory,
+		propProducts,
+		callbackDeleteCategory,
+		callbackMoveCategory,
+		borderCategoriesOrders,
+	} = props
 	const [products, setProducts] = useState<IProduct[]>([])
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [isEdited, setIsEdited] = useState<boolean>(false)
@@ -82,7 +94,7 @@ export const Category = (props: {
 				order:
 					products.length !== 0
 						? products[products.length - 1].order + 1
-						: 1,
+						: 0,
 			},
 			{
 				headers: {
@@ -98,29 +110,30 @@ export const Category = (props: {
 		setProducts(products)
 	}
 
+	const moveCategory = (category: ICategory, direction: string): void => {
+		callbackMoveCategory(category, direction)
+	}
+
 	return (
 		<>
 			{isLoading ? (
 				<Loader />
 			) : (
-				<section
-					key={category.id}
-					id={category.name}
-					className="category">
+				<section id={category.name} className="category">
 					{!isEdited && (
 						<header className="category-header">
 							<h2 className="category-header-heading">
 								{category.name}
 							</h2>
 							<button
-								className="button category-header-button--edit-category"
+								className="button button--edit"
 								onClick={() => setIsEdited(true)}>
 								<FontAwesomeIcon icon={faPencilAlt} />
 								Upravit kategorii
 							</button>
 							{products.length === 0 && (
 								<button
-									className="button category-header-button--delete-category"
+									className="button button--delete"
 									onClick={() => {
 										if (
 											window.confirm(
@@ -134,11 +147,30 @@ export const Category = (props: {
 								</button>
 							)}
 							<button
-								className="button category-header-button--add-item"
+								className="button button--add"
 								onClick={() => addItem(category.id)}>
 								<FontAwesomeIcon icon={faPlus} />
 								Přidat novou položku
 							</button>
+							{borderCategoriesOrders.first !==
+								category.order && (
+								<button
+									className="button category-header-button--move-category"
+									onClick={() =>
+										moveCategory(category, "up")
+									}>
+									<FontAwesomeIcon icon={faArrowUp} />
+								</button>
+							)}
+							{borderCategoriesOrders.last !== category.order && (
+								<button
+									className="button category-header-button--move-category"
+									onClick={() =>
+										moveCategory(category, "down")
+									}>
+									<FontAwesomeIcon icon={faArrowDown} />
+								</button>
+							)}
 							{category.desc !== "" && <p>{category.desc}</p>}
 						</header>
 					)}
@@ -215,12 +247,14 @@ export const Category = (props: {
 							</table>
 						</header>
 					)}
-					<ProductsTable
-						filteredProducts={products}
-						callbackSetFilteredProducts={(products: IProduct[]) =>
-							setCategoryProducts(products)
-						}
-					/>
+					<DndProvider backend={HTML5Backend}>
+						<ProductsTable
+							filteredProducts={products}
+							callbackSetFilteredProducts={(
+								products: IProduct[]
+							) => setCategoryProducts(products)}
+						/>
+					</DndProvider>
 				</section>
 			)}
 		</>

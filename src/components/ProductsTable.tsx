@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { api } from "../config/api"
 import IProduct from "../interfaces/IProduct"
 import { Product } from "./Product"
+import { useToken } from "./useToken"
 
 export const ProductsTable = (props: {
 	filteredProducts: IProduct[]
@@ -8,6 +10,8 @@ export const ProductsTable = (props: {
 }) => {
 	const { filteredProducts, callbackSetFilteredProducts } = props
 	const [products, setProducts] = useState<IProduct[]>([])
+	const { token } = useToken()
+	const ref = useRef(null)
 
 	const deleteProduct = (id: number): void => {
 		setProducts(products.filter((p) => p.id !== id))
@@ -18,12 +22,52 @@ export const ProductsTable = (props: {
 		setProducts(Object.values(filteredProducts))
 	}, [filteredProducts])
 
+	const changeOrder = (
+		movedProduct: IProduct,
+		swappedProduct: IProduct
+	): void => {
+		let _products = products
+		movedProduct = _products.find(
+			(item) => item.id === movedProduct.id
+		) as IProduct
+		swappedProduct = _products.find(
+			(item) => item.id === swappedProduct.id
+		) as IProduct
+		let movedProductIndex: number = _products.indexOf(movedProduct)
+		let swappedProductIndex: number = _products.indexOf(swappedProduct)
+		let movedProductOrder: number = movedProduct.order
+		let swappedProductOrder: number = swappedProduct.order
+		movedProduct = { ...movedProduct, order: swappedProductOrder }
+		swappedProduct = { ...swappedProduct, order: movedProductOrder }
+		_products[swappedProductIndex] = movedProduct
+		_products[movedProductIndex] = swappedProduct
+		callbackSetFilteredProducts([..._products])
+		setProducts(_products)
+		api.post(
+			`/product/${_products[swappedProductIndex].id}`,
+			{ order: swappedProductOrder },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+		api.post(
+			`/product/${_products[movedProductIndex].id}`,
+			{ order: movedProductOrder },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+	}
+
 	return (
 		<div className="table-container productstable-container">
 			<table className="table productstable">
 				<thead className="table-header productstable-header">
 					<tr>
-						<th className="grip"></th>
 						<th className="code">Kód</th>
 						<th className="img">Foto</th>
 						<th className="name">Název</th>
@@ -37,7 +81,7 @@ export const ProductsTable = (props: {
 						<th className="buttons">Interakce</th>
 					</tr>
 				</thead>
-				<tbody className="table-body productstable-body">
+				<tbody className="table-body productstable-body" ref={ref}>
 					{products.map((product: IProduct) => {
 						return (
 							<Product
@@ -46,6 +90,10 @@ export const ProductsTable = (props: {
 								callbackDeleteProduct={(id: number) =>
 									deleteProduct(id)
 								}
+								callbackChangeOrder={(
+									movedProduct: IProduct,
+									swappedProduct: IProduct
+								) => changeOrder(movedProduct, swappedProduct)}
 							/>
 						)
 					})}

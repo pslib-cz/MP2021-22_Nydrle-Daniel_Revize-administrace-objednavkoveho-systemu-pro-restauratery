@@ -19,35 +19,37 @@ export const Home = () => {
 	useRequireAuth()
 
 	const getOrders = () => {
-		setIsLoading(true)
-		api.get("/order/all?count=5", {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}).then((response) => {
-			let _orders: Order[] = Object.values(response.data.data.orders)
-			console.log(response.data.data.orders)
-			setOrders(_orders)
-			setNumberOfOrders(response.data.data.total)
-		})
+		return api
+			.get("/order/all?count=5", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				let _orders: Order[] = Object.values(response.data.data.orders)
+				console.log(response.data.data.orders)
+				setOrders(_orders)
+				setNumberOfOrders(response.data.data.total)
+			})
 	}
 
 	const getStats = () => {
-		api.get("/order/stats", {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}).then((response) => {
-			let _chartData: ChartData[] = Array.from(response.data.data)
-			setChartData(_chartData)
-			setKpiData(_chartData.slice(Math.max(_chartData.length - 2, 0)))
-			setIsLoading(false)
-		})
+		return api
+			.get("/order/stats", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				let _chartData: ChartData[] = Array.from(response.data.data)
+				setChartData(_chartData)
+				setKpiData(_chartData.slice(Math.max(_chartData.length - 2, 0)))
+			})
 	}
 
 	useEffect(() => {
-		getOrders()
-		getStats()
+		setIsLoading(true)
+		Promise.all([getOrders(), getStats()]).then(() => setIsLoading(false))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

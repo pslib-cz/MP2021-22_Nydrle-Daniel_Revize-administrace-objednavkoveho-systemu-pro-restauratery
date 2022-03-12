@@ -3,18 +3,12 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		&-link {
-			display: inline-block;
-			padding: 0.4rem 1rem;
-			text-decoration: none;
-			border-radius: 2rem;
+		align-items: center;
+		.button {
+			border: 1px solid transparent;
+			font-size: 0.85rem;
 			margin-right: 0.4rem;
 			margin-top: 0.2rem;
-			@include transition-short();
-			&:hover {
-				background-color: $orange;
-				color: white;
-			}
 		}
 	}
 	&-button {

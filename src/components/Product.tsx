@@ -5,22 +5,29 @@ import {
 	faTrash,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IProduct from "../interfaces/IProduct"
 import { TrueFalseIcon } from "./TrueFalseIcon"
 import { ValueNullIcon } from "./ValueNullIcon"
 import { api } from "../config/api"
 import { useToken } from "./useToken"
 import { useRequireAuth } from "./auth/useRequireAuth"
+import { useDrag, useDrop } from "react-dnd"
 
 export const Product = (props: {
 	propProduct: IProduct
 	callbackDeleteProduct: (id: number) => void
+	callbackChangeOrder: (
+		movedProduct: IProduct,
+		swappedProduct: IProduct
+	) => void
 }) => {
-	const { propProduct, callbackDeleteProduct } = props
+	const { propProduct, callbackDeleteProduct, callbackChangeOrder } = props
 	const [isEdited, setIsEdited] = useState<boolean>(false)
 	const [product, setProduct] = useState<IProduct>({ ...propProduct })
 	const { token } = useToken()
+	const ref = useRef(null)
+	const onUnmount = useRef()
 	useRequireAuth()
 
 	useEffect(() => {
@@ -74,13 +81,39 @@ export const Product = (props: {
 		})
 	}
 
+	const moveProduct = (movedProduct: IProduct, swappedProduct: IProduct) => {
+		callbackChangeOrder(movedProduct, swappedProduct)
+	}
+
+	const [{ isDragging }, drag] = useDrag(() => ({
+		type: "products",
+		item: { type: "products", order: product.order, content: product },
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	}))
+
+	drag(ref)
+
+	const [, drop] = useDrop(() => ({
+		accept: "products",
+		drop: (item: { content: IProduct }, monitor) =>
+			moveProduct(item.content, product),
+		collect: (monitor) => ({
+			isOver: !!monitor.isOver(),
+		}),
+	}))
+
+	drop(ref)
+
 	return (
 		<>
 			{!isEdited && (
-				<tr className="product">
-					<td className="grip">
-						<FontAwesomeIcon icon={faGripVertical} />
-					</td>
+				<tr
+					className={`product ${
+						isDragging ? "product--is-dragging" : ""
+					}`}
+					ref={ref}>
 					<td className="code">{product.code}</td>
 					<td className="img">
 						{product.img_thumb !== "" ? (
@@ -133,10 +166,7 @@ export const Product = (props: {
 				</tr>
 			)}
 			{isEdited && (
-				<tr className="product--is-edited">
-					<td className="grip">
-						<FontAwesomeIcon icon={faGripVertical} />
-					</td>
+				<tr className="product product--is-edited">
 					<td className="code">
 						<input
 							type="text"
