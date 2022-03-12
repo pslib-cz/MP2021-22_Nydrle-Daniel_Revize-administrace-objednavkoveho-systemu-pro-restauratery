@@ -137,8 +137,6 @@
 				color: white;
 			}
 			&-button {
-				&--edit-category {
-				}
 				&--add-item {
 					&:hover {
 						background-color: $green;
@@ -146,7 +144,7 @@
 				}
 				&--move-category {
 					background-color: transparent;
-					box-shadow: none;
+					box-shadow: none !important;
 					&:hover {
 						background-color: transparent;
 						svg {

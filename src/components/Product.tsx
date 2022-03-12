@@ -1,5 +1,4 @@
 import {
-	faGripVertical,
 	faMinus,
 	faPencilAlt,
 	faTrash,
@@ -27,7 +26,6 @@ export const Product = (props: {
 	const [product, setProduct] = useState<IProduct>({ ...propProduct })
 	const { token } = useToken()
 	const ref = useRef(null)
-	const onUnmount = useRef()
 	useRequireAuth()
 
 	useEffect(() => {

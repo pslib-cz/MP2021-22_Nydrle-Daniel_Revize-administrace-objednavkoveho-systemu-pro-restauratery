@@ -4,7 +4,6 @@ import { useRequireAuth } from "../auth/useRequireAuth"
 import Order from "../../interfaces/IOrder"
 import { OrdersTable } from "../OrdersTable"
 import { useToken } from "../useToken"
-import { useDidUpdateEffect } from "../functions/useDidUpdateEffect"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
 	faChevronLeft,

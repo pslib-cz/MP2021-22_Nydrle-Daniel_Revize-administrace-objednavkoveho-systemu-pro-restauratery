@@ -29,6 +29,7 @@ export const Layout = ({ children, clearToken, ...rest }: any) => {
 
 	useEffect(() => {
 		getRestaurantData()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
