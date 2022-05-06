@@ -3,7 +3,7 @@ import { api } from "../../config/api"
 import { useRequireAuth } from "../auth/useRequireAuth"
 import Order from "../../interfaces/IOrder"
 import { OrdersTable } from "../OrdersTable"
-import { useToken } from "../useToken"
+import { useToken } from "../auth/useToken"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
 	faChevronLeft,

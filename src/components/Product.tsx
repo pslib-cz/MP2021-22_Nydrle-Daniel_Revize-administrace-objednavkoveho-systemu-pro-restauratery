@@ -9,9 +9,11 @@ import IProduct from "../interfaces/IProduct"
 import { TrueFalseIcon } from "./TrueFalseIcon"
 import { ValueNullIcon } from "./ValueNullIcon"
 import { api } from "../config/api"
-import { useToken } from "./useToken"
+import { useToken } from "./auth/useToken"
 import { useRequireAuth } from "./auth/useRequireAuth"
 import { useDrag, useDrop } from "react-dnd"
+import Uploady, { useUploady } from "@rpldy/uploady"
+import UploadButton from "@rpldy/upload-button"
 
 export const Product = (props: {
 	propProduct: IProduct
@@ -24,6 +26,7 @@ export const Product = (props: {
 	const { propProduct, callbackDeleteProduct, callbackChangeOrder } = props
 	const [isEdited, setIsEdited] = useState<boolean>(false)
 	const [product, setProduct] = useState<IProduct>({ ...propProduct })
+	// const uploady = useUploady()
 	const { token } = useToken()
 	const ref = useRef(null)
 	useRequireAuth()
@@ -175,13 +178,13 @@ export const Product = (props: {
 						/>
 					</td>
 					<td className="img">
-						{product.img_thumb !== "" ? (
-							<img
-								src={product.img_thumb}
-								alt={product.name}></img>
-						) : (
-							<FontAwesomeIcon icon={faMinus} />
-						)}
+						{/* <Uploady
+							destination={{
+								url: `/data/product/${product.id}/image`,
+							}}
+							accept="image/*">
+							<UploadButton>Upload</UploadButton>
+						</Uploady> */}
 					</td>
 					<td className="name">
 						<input

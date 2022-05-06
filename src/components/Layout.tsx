@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import { api } from "../config/api"
 import IRestaurant from "../interfaces/IRestaurant"
-import { useToken } from "./useToken"
+import { useToken } from "./auth/useToken"
 
 export const Layout = ({ children, clearToken, ...rest }: any) => {
 	const navigate = useNavigate()

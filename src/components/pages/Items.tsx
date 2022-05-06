@@ -5,7 +5,7 @@ import { api } from "../../config/api"
 import { useRequireAuth } from "../auth/useRequireAuth"
 import ICategory from "../../interfaces/ICategory"
 import IProduct from "../../interfaces/IProduct"
-import { useToken } from "../useToken"
+import { useToken } from "../auth/useToken"
 import { Category } from "../Category"
 import { Loader } from "../Loader"
 
@@ -82,19 +82,15 @@ export const Items = () => {
 		let _categories: ICategory[] = categories
 		let movedCategoryIndex: number = _categories.indexOf(category)
 		let movedCategoryOrder: number = category.order
-		let swappedCategoryIndex: number = 0
-		let swappedCategoryOrder: number
-		swappedCategoryIndex =
+		let swappedCategoryIndex: number =
 			direction === "up" ? movedCategoryIndex - 1 : movedCategoryIndex + 1
-		console.log(swappedCategoryIndex)
 		let swappedCategory = _categories[swappedCategoryIndex]
-		swappedCategoryOrder = swappedCategory.order
+		let swappedCategoryOrder: number = swappedCategory.order
 		category = { ...category, order: swappedCategoryOrder }
 		swappedCategory = { ...swappedCategory, order: movedCategoryOrder }
 		_categories[movedCategoryIndex] = swappedCategory
 		_categories[swappedCategoryIndex] = category
 		setCategories([..._categories])
-		console.log(_categories)
 		api.post(
 			`/category/${category.id}`,
 			{

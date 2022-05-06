@@ -16,7 +16,7 @@ import IProduct from "../interfaces/IProduct"
 import { useRequireAuth } from "./auth/useRequireAuth"
 import { Loader } from "./Loader"
 import { ProductsTable } from "./ProductsTable"
-import { useToken } from "./useToken"
+import { useToken } from "./auth/useToken"
 
 export const Category = (props: {
 	propCategory: ICategory
@@ -247,14 +247,16 @@ export const Category = (props: {
 							</table>
 						</header>
 					)}
-					<DndProvider backend={HTML5Backend}>
-						<ProductsTable
-							filteredProducts={products}
-							callbackSetFilteredProducts={(
-								products: IProduct[]
-							) => setCategoryProducts(products)}
-						/>
-					</DndProvider>
+					{products.length > 0 && (
+						<DndProvider backend={HTML5Backend}>
+							<ProductsTable
+								filteredProducts={products}
+								callbackSetFilteredProducts={(
+									products: IProduct[]
+								) => setCategoryProducts(products)}
+							/>
+						</DndProvider>
+					)}
 				</section>
 			)}
 		</>

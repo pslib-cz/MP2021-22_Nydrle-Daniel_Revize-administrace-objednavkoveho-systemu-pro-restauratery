@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { api } from "../config/api"
 import IProduct from "../interfaces/IProduct"
 import { Product } from "./Product"
-import { useToken } from "./useToken"
+import { useToken } from "./auth/useToken"
 
 export const ProductsTable = (props: {
 	filteredProducts: IProduct[]
@@ -35,17 +35,15 @@ export const ProductsTable = (props: {
 		) as IProduct
 		let movedProductIndex: number = _products.indexOf(movedProduct)
 		let swappedProductIndex: number = _products.indexOf(swappedProduct)
-		let movedProductOrder: number = movedProduct.order
-		let swappedProductOrder: number = swappedProduct.order
-		movedProduct = { ...movedProduct, order: swappedProductOrder }
-		swappedProduct = { ...swappedProduct, order: movedProductOrder }
+		movedProduct = { ...movedProduct, order: swappedProduct.order }
+		swappedProduct = { ...swappedProduct, order: movedProduct.order }
 		_products[swappedProductIndex] = movedProduct
 		_products[movedProductIndex] = swappedProduct
 		callbackSetFilteredProducts([..._products])
 		setProducts(_products)
 		api.post(
 			`/product/${_products[swappedProductIndex].id}`,
-			{ order: swappedProductOrder },
+			{ order: swappedProduct.order },
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -54,7 +52,7 @@ export const ProductsTable = (props: {
 		)
 		api.post(
 			`/product/${_products[movedProductIndex].id}`,
-			{ order: movedProductOrder },
+			{ order: movedProduct.order },
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,

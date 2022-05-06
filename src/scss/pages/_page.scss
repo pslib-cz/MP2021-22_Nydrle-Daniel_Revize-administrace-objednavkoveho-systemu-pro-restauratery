@@ -7,3 +7,9 @@
 		margin-top: 0;
 	}
 }
+
+@media screen and (max-width: 576px) {
+	.page {
+		padding-top: 5rem;
+	}
+}

@@ -3,17 +3,17 @@ import { Kpis } from "../Kpis"
 import { OrdersTable } from "../OrdersTable"
 import { OrderCharts } from "../OrderCharts"
 import { useRequireAuth } from "../auth/useRequireAuth"
-import { useToken } from "../useToken"
+import { useToken } from "../auth/useToken"
 import { api } from "../../config/api"
-import Order from "../../interfaces/IOrder"
-import ChartData from "../../interfaces/IChartData"
+import IOrder from "../../interfaces/IOrder"
+import IChartData from "../../interfaces/IChartData"
 import { Loader } from "../Loader"
 
 export const Home = () => {
 	const [isLoading, setIsLoading] = useState(true)
-	const [orders, setOrders] = useState<Order[]>([])
-	const [chartData, setChartData] = useState<ChartData[]>([])
-	const [kpiData, setKpiData] = useState<ChartData[]>([])
+	const [orders, setOrders] = useState<IOrder[]>([])
+	const [chartData, setChartData] = useState<IChartData[]>([])
+	const [kpiData, setKpiData] = useState<IChartData[]>([])
 	const [numberOfOrders, setNumberOfOrders] = useState<number>(0)
 	const { token } = useToken()
 	useRequireAuth()
@@ -26,7 +26,7 @@ export const Home = () => {
 				},
 			})
 			.then((response) => {
-				let _orders: Order[] = Object.values(response.data.data.orders)
+				let _orders: IOrder[] = Object.values(response.data.data.orders)
 				console.log(response.data.data.orders)
 				setOrders(_orders)
 				setNumberOfOrders(response.data.data.total)
@@ -41,7 +41,7 @@ export const Home = () => {
 				},
 			})
 			.then((response) => {
-				let _chartData: ChartData[] = Array.from(response.data.data)
+				let _chartData: IChartData[] = Array.from(response.data.data)
 				setChartData(_chartData)
 				setKpiData(_chartData.slice(Math.max(_chartData.length - 2, 0)))
 			})

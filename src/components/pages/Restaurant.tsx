@@ -14,7 +14,7 @@ import { useRequireAuth } from "../auth/useRequireAuth"
 import { BusinessHour } from "../BusinessHour"
 import { Loader } from "../Loader"
 import { TrueFalseIcon } from "../TrueFalseIcon"
-import { useToken } from "../useToken"
+import { useToken } from "../auth/useToken"
 
 export const Restaurant = (props: any) => {
 	const [isLoading, setIsLoading] = useState(true)
