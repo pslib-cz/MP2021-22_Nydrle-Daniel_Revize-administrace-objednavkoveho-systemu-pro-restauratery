@@ -2,32 +2,11 @@ import { useEffect, useRef, useState } from "react"
 import IChartData from "../interfaces/IChartData"
 
 import { Chart } from "react-chartjs-2"
-import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
-	BarElement,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-	Filler,
-} from "chart.js"
+import { Chart as ChartJS, registerables } from "chart.js"
 import * as clr from "../plugins/plugin.colors"
 import IChartJsData from "../interfaces/IChartJsData"
 
-ChartJS.register(
-	CategoryScale,
-	LinearScale,
-	BarElement,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-	Filler
-)
+ChartJS.register(...registerables)
 
 interface Props {
 	chartData: IChartData[]
